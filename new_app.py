@@ -37,8 +37,8 @@ with open("uicbusiness.png", "rb") as f:
 
     st.markdown(
         f"""
-        <div style="display:table;margin-top:-.5%;margin-right:-85%;">
-            <img src="data:image/png;base64,{data}" width="100" height="100">
+        <div style="display:table;margin-top:-.5%;margin-left:-5%;">
+            <img src="data:image/png;base64,{data}" width="200" height="100">
         </div>
         """,
         unsafe_allow_html=True,
