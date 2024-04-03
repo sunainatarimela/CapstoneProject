@@ -44,7 +44,7 @@ def set_logo(png_file):
     </style>
     ''' % bin_str
     st.markdown(page_bg_img, unsafe_allow_html=True)
-set_logo("uicbusiness.png")
+st.sidebar.image(set_logo("uicbusiness.png"))
 
 
 def intro():
