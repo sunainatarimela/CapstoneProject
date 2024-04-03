@@ -31,20 +31,18 @@ def set_background(png_file):
     st.markdown(page_bg_img, unsafe_allow_html=True)
 set_background("govcontracts.jpg")
 
-def set_logo(png_file):
-    bin_str = get_base64(png_file)
-    <style>
-    .stApp {
-    background-image: url("data:image/png;base64,%s");
-    background-repeat: no-repeat;
-    padding-top: 120px;
-    background-position: 20px 20px;
-    }
-    </style>
-    st.markdown(page_bg_img, unsafe_allow_html=True)
-my_logo = set_logo("uicbusiness.png")
-st.sidebar.image(my_logo)
 
+with open("uicbusiness.png", "rb") as f:
+    data = base64.b64encode(f.read()).decode("utf-8")
+
+    st.sidebar.markdown(
+        f"""
+        <div style="display:table;margin-top:-20%;margin-left:20%;">
+            <img src="data:image/png;base64,{data}" width="100" height="150">
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
 def intro():
     import streamlit as st
