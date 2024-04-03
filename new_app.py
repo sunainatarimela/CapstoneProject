@@ -33,7 +33,6 @@ set_background("govcontracts.jpg")
 
 def set_logo(png_file):
     bin_str = get_base64(png_file)
-    page_bg_img = '''
     <style>
     .stApp {
     background-image: url("data:image/png;base64,%s");
@@ -42,7 +41,6 @@ def set_logo(png_file):
     background-position: 20px 20px;
     }
     </style>
-    ''' % bin_str
     st.markdown(page_bg_img, unsafe_allow_html=True)
 my_logo = set_logo("uicbusiness.png")
 st.sidebar.image(my_logo)
