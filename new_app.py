@@ -37,7 +37,7 @@ with open("uicbusiness.png", "rb") as f:
 
     st.sidebar.markdown(
         f"""
-        <div style="display:table;margin-top:-20%;margin-left:20%;">
+        <div style="display:table;margin-top:-10%;margin-left:5%;">
             <img src="data:image/png;base64,{data}" width="200" height="100">
         </div>
         """,
