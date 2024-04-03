@@ -31,12 +31,30 @@ def set_background(png_file):
     st.markdown(page_bg_img, unsafe_allow_html=True)
 set_background("govcontracts.jpg")
 
-def add_logo(logo_path, width, height):
-    logo = Image.open(logo_path)
-    modified_logo = logo.resize((width, height))
-    return modified_logo
+def add_logo():
+        st.markdown(
+        """
+        <style>
+            [data-testid="stSidebarNav"] {
+                background-image: url(https://business.uic.edu/wp-content/uploads/sites/91/2018/09/DeansReport_Header_2018_545x355.jpg/200/80);
+                background-repeat: no-repeat;
+                padding-top: 120px;
+                background-position: 20px 20px;
+            }
+            [data-testid="stSidebarNav"]::before {
+                content: "My Company Name";
+                margin-left: 20px;
+                margin-top: 20px;
+                font-size: 30px;
+                position: relative;
+                top: 100px;
+            }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
 
-my_logo = add_logo(logo_path="uicbusiness.png", width=200, height=60)
+my_logo = add_logo()
 st.sidebar.image(my_logo)
 
 def intro():
