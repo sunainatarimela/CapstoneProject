@@ -8,6 +8,7 @@ import numpy as np
 import pickle
 import requests, os
 import base64
+from PIL import Image
 
 apptitle = 'Gov Contracts'
 st.set_page_config(page_title=apptitle, page_icon=":book:")
@@ -30,6 +31,13 @@ def set_background(png_file):
     st.markdown(page_bg_img, unsafe_allow_html=True)
 set_background("govcontracts.jpg")
 
+def add_logo(logo_path, width, height):
+    logo = Image.open(logo_path)
+    modified_logo = logo.resize((width, height))
+    return modified_logo
+
+my_logo = add_logo(logo_path="uicbusiness.png", width=200, height=60)
+st.sidebar.image(my_logo)
 
 def intro():
     import streamlit as st
