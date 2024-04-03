@@ -6,7 +6,6 @@ import streamlit.components.v1 as components
 import pandas as pd
 import numpy as np
 import pickle
-import matplotlib.pyplot as plt
 import requests, os
 import base64
 
@@ -57,7 +56,6 @@ def business_type_predict():
     import pandas as pd
     import numpy as np
     import pickle
-    import matplotlib.pyplot as plt
     import requests, os
     import base64
     import streamlit as st
@@ -281,7 +279,6 @@ def contract_value_predict():
     import pandas as pd
     import numpy as np
     import pickle
-    import matplotlib.pyplot as plt
     import requests, os
     import base64
     import streamlit as st
@@ -355,7 +352,6 @@ def contract_duration_predict():
     import pandas as pd
     import numpy as np
     import pickle
-    import matplotlib.pyplot as plt
     import requests, os
     import base64
     import streamlit as st
