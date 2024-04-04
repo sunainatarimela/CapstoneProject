@@ -73,39 +73,6 @@ def business_type_predict():
     import streamlit as st
     import streamlit.components.v1 as components
 
-    # # Load the serialized object from the pickle file
-    # with open('label_encoder.pkl', 'rb') as file:
-        # label_encoders = pickle.load(file)
-
-        # NAICS Code Dictionary
-        # Naics_Dict = {'11':'Agriculture, Forestry, Fishing and Hunting',
-        # '21':'Mining',
-        # '22':'Utilities',
-        # '23':'Construction',
-        # '31':'Manufacturing',
-        # '32':'Manufacturing',
-        # '33':'Manufacturing',
-        # '42':'Wholesale Trade',
-        # '43':'Wholesale Trade',
-        # '44':'Retail Trade',
-        # '45':'Retail Trade',
-        # '48':'Transportation and Warehousing',
-        # '49':'Transportation and Warehousing',
-        # '51':'Information',
-        # '52':'Finance and Insurance',
-        # '53':'Real Estate Rental and Leasing',
-        # '54':'Professional, Scientific, and Technical Services',
-        # '55':'Management of Companies and Enterprises',
-        # '56':'Administrative and Support and Waste… Services',
-        # '61':'Educational Services',
-        # '62':'Health Care and Social Assistance',
-        # '71':'Arts, Entertainment, and Recreation',
-        # '72':'Accommodation and Food Services',
-        # '81':'Other Services (except Public Administration)',
-        # '92':'Public Administration'}
-
-
-
     def construct_sample(input):
 
         # Load the serialized object from the pickle file
@@ -248,11 +215,9 @@ def business_type_predict():
               {text}
           </div>
       </a>
-      """,
-      unsafe_allow_html=True
-      )
+      """, unsafe_allow_html=True)
 
-      redirect_button(url,"this leads to the tableau dashboard")
+redirect_button(url,"this leads to the tableau dashboard")
 
     def main():
       import pickle
