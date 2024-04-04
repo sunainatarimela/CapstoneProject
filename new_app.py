@@ -368,49 +368,11 @@ def contract_duration_predict():
     import requests, os
     import base64
     import streamlit as st
+    import sklearn
     import streamlit.components.v1 as components
 
 
-          # def first_19_inputs():
-              # with open('label_encoder.pkl', 'rb') as file:
-              #         label_encoders = pickle.load(file)
-
-              # X_test = np.zeros(19)
-              # X_test[0] = label_encoders['Contracting Agency ID'].transform([input[0]])
-              # X_test[1] = label_encoders['Domestic or Foreign Entity'].transform([input[5]])
-              # X_test[2] = label_encoders['Is Performance Based Service Acquisition'].transform([input[6]])
-              # X_test[3] = label_encoders['Type of Contract'].transform([input[1]])
-              # X_test[4] = label_encoders['NAICS Code'].transform([input[2][:2]])
-              # X_test[5] = label_encoders['Principal Place of Performance State Code'].transform([input[3]])
-              # X_test[6] = label_encoders['Principal Place of Performance Country Name'].transform([input[4]])
-              # X_test[7] = label_encoders['Country of Product or Service Origin'].transform([input[19]])
-              # X_test[8] = label_encoders['Extent Competed'].transform([input[7]])
-              # X_test[9] = label_encoders['Solicitation Procedures'].transform([input[8]])
-              # X_test[10] = label_encoders['Local Area Set Aside'].transform([input[9]])
-              # X_test[11] = label_encoders['Vendor Address State Name'].transform([input[10]])
-              # X_test[12] = label_encoders['Vendor Address Country Name'].transform([input[11]])
-              # X_test[13] = label_encoders['Labor Standards'].transform([input[12]])
-              # X_test[14] = label_encoders['Is Vendor Business Type - For Profit Organization'].transform([input[13]])
-              # X_test[15] = label_encoders['Is Vendor Business Type - All Awards'].transform([input[14]])
-              # X_test[16] = label_encoders['Is Vendor Business Type - Corporate Entity, Not Tax Exempt'].transform([input[15]])
-              # X_test[17] = label_encoders['Is Vendor Business Type - Manufacturer Of Goods'].transform([input[16]])
-              # X_test[18] = label_encoders['Business Type'].transform([input[16]])
-              # X_test[19] = label_encoders['Base and All Options Value (Total Contract Value)'].transform(np.array([input[17]]).reshape(-1, 1))
-
-              # return X_test
-
     def construct_sample_duration(input):
-
-        # # Load the serialized object from the pickle file
-        # with open('label_encoder.pkl', 'rb') as file:
-        #   label_encoders = pickle.load(file)
-
-        # #Get rid of the repetition of the lines - defined at the bottom of this cell
-        # X_test = first_19_inputs()
-        # #appending the last input - "Business Type"
-        # X_test = np.append(X_test, label_encoders['Business Type'].transform(np.array([input[18]]).reshape(-1, 1)))
-
-        # return X_test
 
         # Load the serialized object from the pickle file
         with open('label_encoder.pkl', 'rb') as file:
