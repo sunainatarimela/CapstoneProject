@@ -1,5 +1,5 @@
-# Should remove the comment from below
-# %%writefile app.py
+!pip install -r requirements.txt
+
 import streamlit as st
 import streamlit.components.v1 as components
 
