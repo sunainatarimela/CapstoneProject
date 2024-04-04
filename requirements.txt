@@ -3,7 +3,6 @@ pandas
 streamlit
 openai
 cloudpickle
-pickle
 streamlit.components.v1
 matplotlib.pyplot
 requests
