@@ -3,8 +3,8 @@ pandas
 streamlit
 openai
 cloudpickle
-streamlit.components.v1
-matplotlib.pyplot
+streamlit
+matplotlib
 requests
 base64
 PIL
