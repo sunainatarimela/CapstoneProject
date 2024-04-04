@@ -1,13 +1,15 @@
-#%%writefile app.py
+# Should remove the comment from below
+# %%writefile app.py
 import streamlit as st
 import streamlit.components.v1 as components
+
 
 import pandas as pd
 import numpy as np
 import pickle
+import matplotlib.pyplot as plt
 import requests, os
 import base64
-from PIL import Image
 
 apptitle = 'Gov Contracts'
 st.set_page_config(page_title=apptitle, page_icon=":book:")
@@ -28,8 +30,7 @@ def set_background(png_file):
     </style>
     ''' % bin_str
     st.markdown(page_bg_img, unsafe_allow_html=True)
-set_background("govcontracts.jpg")
-
+set_background("/content/drive/MyDrive/Colab Notebooks/govcontracts.jpg")
 
 with open("uicbusiness.png", "rb") as f:
     data = base64.b64encode(f.read()).decode("utf-8")
@@ -68,15 +69,17 @@ def business_type_predict():
     import pandas as pd
     import numpy as np
     import pickle
+    import matplotlib.pyplot as plt
     import requests, os
     import base64
     import streamlit as st
     import streamlit.components.v1 as components
 
+
     def construct_sample(input):
 
         # Load the serialized object from the pickle file
-        with open('label_encoder.pkl', 'rb') as file:
+        with open('/content/drive/MyDrive/Colab Notebooks/label_encoder.pkl', 'rb') as file:
           label_encoders = pickle.load(file)
 
         X_test = np.zeros(20)
@@ -116,7 +119,7 @@ def business_type_predict():
         X_test = construct_sample(input)
 
         # Load the serialized object from the pickle file
-        with open('clf.pkl', 'rb') as file:
+        with open('/content/drive/MyDrive/Colab Notebooks/clf.pkl', 'rb') as file:
           loaded_model = pickle.load(file)
 
         prediction = loaded_model.predict(X_test.reshape(1, -1) )
@@ -130,7 +133,7 @@ def business_type_predict():
 
 
         # Load the serialized object from the pickle file
-        with open('label_encoder.pkl', 'rb') as file:
+        with open('/content/drive/MyDrive/Colab Notebooks/label_encoder.pkl', 'rb') as file:
           label_encoders = pickle.load(file)
 
         prob_df=pd.DataFrame(pred_probabilities, columns=label_encoders['Business Type'].classes_)
@@ -201,45 +204,23 @@ def business_type_predict():
     html_temp = "<div class='tableauPlaceholder' id='viz1711381846728' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ID&#47;IDS_560_dashboard&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='IDS_560_dashboard&#47;Dashboard1' /><param name='tabs' value='yes' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ID&#47;IDS_560_dashboard&#47;Dashboard1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1711381846728');                    var vizElement = divElement.getElementsByTagName('object')[0];                 if ( divElement.offsetWidth > 800 ) { vizElement.style.width='2850px';vizElement.style.height='1727px';}else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='2850px';vizElement.style.height='1727px';} else { vizElement.style.width='100%';vizElement.style.height='2077px';}               var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>"
     components.html(html_temp)
 
-    def redirect_button(url: str, text: str= None, color="#FD504D"):
-      st.markdown(
-      f"""
-      <a href="{url}" target="_self">
-          <div style="
-              display: inline-block;
-              padding: 0.5em 1em;
-              color: #FFFFFF;
-              background-color: {color};
-              border-radius: 3px;
-              text-decoration: none;">
-              {text}
-          </div>
-      </a>
-      """, unsafe_allow_html=True)
-
-redirect_button(url,"this leads to the tableau dashboard")
-
     def main():
       import pickle
       # Load the serialized object from the pickle file
-      with open('clf.pkl', 'rb') as file:
+      with open('/content/drive/MyDrive/Colab Notebooks/clf.pkl', 'rb') as file:
         loaded_model = pickle.load(file)
 
       # # Load the serialized object from the pickle file
-      with open('label_encoder.pkl', 'rb') as file:
+      with open('/content/drive/MyDrive/Colab Notebooks/label_encoder.pkl', 'rb') as file:
         label_encoders = pickle.load(file)
+
+
 
     html_temp = "<div class='tableauPlaceholder' id='viz1710733360364' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ID&#47;IDS_560_dashboard&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='IDS_560_dashboard&#47;Dashboard1' /><param name='tabs' value='yes' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ID&#47;IDS_560_dashboard&#47;Dashboard1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1710733360364');                    var vizElement = divElement.getElementsByTagName('object')[0];                    if ( divElement.offsetWidth > 800 ) { vizElement.style.minWidth='1620px';vizElement.style.maxWidth='1720px';vizElement.style.width='100%';vizElement.style.minHeight='818px';vizElement.style.maxHeight='910px';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.minWidth='1620px';vizElement.style.maxWidth='1720px';vizElement.style.width='100%';vizElement.style.minHeight='818px';vizElement.style.maxHeight='910px';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else { vizElement.style.width='100%';vizElement.style.height='1250px';}                     var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>"
     components.html(html_temp)
 
-    output_html= """
-    <div style = "background-color:#F08080;padding:10px >
-    <h2 style = "color:black; text-align: center;"> Business Type Won</h2>
-    </div>
-    """
-
     if st.button ("Predict the business type to win the contract"):
-      output = run_pred_model_business_type(select_agencyid,select_contracttype,select_naicscode,select_pricipalplaceofperformancestate,
+       output = run_pred_model_business_type(select_agencyid,select_contracttype,select_naicscode,select_pricipalplaceofperformancestate,
                     select_pricipalplaceofperformancecountry,select_entity,select_performancebasedservice,select_extentcompeted,select_solicitationprocedures,
                     select_localareasetaside,select_vendoraddresstatename,select_vendoraddresscountryname,select_laborstandards,
                     select_vendorbusinesstypeforProfit,select_vendorbusinesstypeallawards,select_vendorbusinesstypecorprateentity,
@@ -247,7 +228,7 @@ redirect_button(url,"this leads to the tableau dashboard")
 
           #st.success('The business that will win the contract is{}'.format(output))
           #st.table(output)
-      st.dataframe(output.style.highlight_max(axis=1))
+    st.dataframe(output.style.highlight_max(axis=1))
 
     if __name__ == "__main__":
           main()
@@ -256,6 +237,7 @@ def contract_value_predict():
     import pandas as pd
     import numpy as np
     import pickle
+    import matplotlib.pyplot as plt
     import requests, os
     import base64
     import streamlit as st
@@ -329,16 +311,18 @@ def contract_duration_predict():
     import pandas as pd
     import numpy as np
     import pickle
+    import matplotlib.pyplot as plt
     import requests, os
     import base64
     import streamlit as st
     import streamlit.components.v1 as components
 
+        
 
     def construct_sample_duration(input):
 
         # Load the serialized object from the pickle file
-        with open('label_encoder.pkl', 'rb') as file:
+        with open('/content/drive/MyDrive/Colab Notebooks/label_encoder.pkl', 'rb') as file:
           label_encoders = pickle.load(file)
 
         X_test = np.zeros(20)
@@ -380,17 +364,12 @@ def contract_duration_predict():
 
       X_test = construct_sample_duration(input)
 
-          # Load the serialized object from the pickle file -> change for duration model
-          # for durration writing would need to inlude this in the other script with the model:
-              # with open('dur_xgb.pkl', 'wb') as file:
-              #   pickle.dump(xgb_r, file)
-
       # Load the serialized object from the pickle file -> change for duration model
-      with open('dur_xgb.pkl', 'rb') as file:
+      with open('/content/drive/MyDrive/Colab Notebooks/dur_xgb.pkl', 'rb') as file:
         loaded_model = pickle.load(file)
 
       # Load the serialized object from the pickle file
-      with open('label_encoder.pkl', 'rb') as file:
+      with open('/content/drive/MyDrive/Colab Notebooks/label_encoder.pkl', 'rb') as file:
         label_encoders = pickle.load(file)
 
       #Regression of the Duration - I think reshaping is not necessary
@@ -471,34 +450,15 @@ def contract_duration_predict():
     html_temp1 = "<div class='tableauPlaceholder' id='viz1711381846728' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ID&#47;IDS_560_dashboard&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='IDS_560_dashboard&#47;Dashboard1' /><param name='tabs' value='yes' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ID&#47;IDS_560_dashboard&#47;Dashboard1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1711381846728');                    var vizElement = divElement.getElementsByTagName('object')[0];                 if ( divElement.offsetWidth > 800 ) { vizElement.style.width='2850px';vizElement.style.height='1727px';}else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='2850px';vizElement.style.height='1727px';} else { vizElement.style.width='100%';vizElement.style.height='2077px';}               var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>"
     components.html(html_temp1)
 
-    def redirect_button(url: str, text: str= None, color="#FD504D"):
-      st.markdown(
-      f"""
-      <a href="{url}" target="_self">
-          <div style="
-              display: inline-block;
-              padding: 0.5em 1em;
-              color: #FFFFFF;
-              background-color: {color};
-              border-radius: 3px;
-              text-decoration: none;">
-              {text}
-          </div>
-      </a>
-      """,
-      unsafe_allow_html=True
-      )
-
-      redirect_button(url,"this leads to the tableau dashboard")
 
     def main():
       import pickle
       # Load the serialized object from the pickle file
-      with open('dur_xgb.pkl', 'rb') as file:
+      with open('/content/drive/MyDrive/Colab Notebooks/dur_xgb.pkl', 'rb') as file:
         loaded_model = pickle.load(file)
 
       # Load the serialized object from the pickle file
-      with open('label_encoder.pkl', 'rb') as file:
+      with open('/content/drive/MyDrive/Colab Notebooks/label_encoder.pkl', 'rb') as file:
         label_encoders = pickle.load(file)
 
     html_temp = "<div class='tableauPlaceholder' id='viz1710733360364' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ID&#47;IDS_560_dashboard&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='IDS_560_dashboard&#47;Dashboard1' /><param name='tabs' value='yes' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ID&#47;IDS_560_dashboard&#47;Dashboard1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1710733360364');                    var vizElement = divElement.getElementsByTagName('object')[0];                    if ( divElement.offsetWidth > 800 ) { vizElement.style.minWidth='1620px';vizElement.style.maxWidth='1720px';vizElement.style.width='100%';vizElement.style.minHeight='818px';vizElement.style.maxHeight='910px';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.minWidth='1620px';vizElement.style.maxWidth='1720px';vizElement.style.width='100%';vizElement.style.minHeight='818px';vizElement.style.maxHeight='910px';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else { vizElement.style.width='100%';vizElement.style.height='1250px';}                     var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>"
