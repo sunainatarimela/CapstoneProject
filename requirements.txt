@@ -9,7 +9,6 @@ charset_normalizer==3.3.2
 click==8.1.7
 cloudpickle==2.2.1
 cycler==0.12.1
-dateutil==2.8.2
 debugpy==1.6.6
 decorator==4.4.2
 defusedxml==0.7.1
