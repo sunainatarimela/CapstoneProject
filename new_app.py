@@ -2,7 +2,6 @@
 import streamlit as st
 import streamlit.components.v1 as components
 
-
 import pandas as pd
 import numpy as np
 import pickle
@@ -368,7 +367,6 @@ def contract_duration_predict():
     import requests, os
     import base64
     import streamlit as st
-    import sklearn
     import streamlit.components.v1 as components
 
 
