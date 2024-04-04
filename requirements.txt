@@ -6,7 +6,6 @@ cloudpickle
 streamlit
 matplotlib
 requests
-base64
 PIL
 Image
 scikit-learn
