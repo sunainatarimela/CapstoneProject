@@ -44,6 +44,4 @@ traitlets==5.7.1
 urllib3==2.0.7
 wcwidth==0.2.13
 IPython==8.12.3
-jupyter_client==6.1.12
-jupyter_core==5.7.2
 notebook==6.5.5
