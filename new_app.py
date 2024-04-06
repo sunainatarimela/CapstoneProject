@@ -447,6 +447,40 @@ def contract_duration_predict():
 
     def main():
       import pickle
+      import pandas as pd
+      import os
+      import seaborn as sns
+      import matplotlib.pyplot as plt
+      import numpy as np
+      from sklearn import preprocessing
+      from sklearn.preprocessing import MinMaxScaler
+      from sklearn.model_selection import train_test_split
+      import pickle
+      from sklearn.metrics import confusion_matrix
+      from sklearn import metrics
+      from sklearn.model_selection import cross_validate
+      from sklearn.tree import DecisionTreeClassifier
+      from sklearn.model_selection import GridSearchCV, cross_validate
+      from sklearn.tree import DecisionTreeClassifier
+      from sklearn.ensemble import RandomForestClassifier
+      from sklearn.model_selection import RandomizedSearchCV
+      from sklearn.ensemble import RandomForestClassifier
+      from sklearn.metrics import accuracy_score, f1_score
+      import numpy as np
+      from sklearn.inspection import permutation_importance
+      from sklearn.neighbors import KNeighborsClassifier
+      from sklearn.neighbors import KNeighborsClassifier
+      from sklearn.model_selection import RandomizedSearchCV, cross_validate
+      from sklearn.metrics import make_scorer, accuracy_score, f1_score
+      from sklearn import linear_model
+      from sklearn.metrics import r2_score
+      from sklearn.linear_model import Ridge
+      from sklearn.model_selection import GridSearchCV
+      from sklearn.linear_model import Lasso
+      import xgboost as xg
+      from sklearn.metrics import mean_squared_error as MSE
+      from sklearn.metrics import accuracy_score
+      from sklearn.linear_model import Ridge
       # Load the serialized object from the pickle file
       with open('dur_xgb.pkl', 'rb') as file:
         loaded_model = pickle.load(file)
