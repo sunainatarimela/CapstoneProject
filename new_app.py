@@ -1,4 +1,3 @@
-#%%writefile app.py
 import streamlit as st
 import streamlit.components.v1 as components
 
@@ -30,6 +29,17 @@ def set_background(png_file):
     st.markdown(page_bg_img, unsafe_allow_html=True)
 set_background("govcontracts.jpg")
 
+with open("uicbusiness.png", "rb") as f:
+    data = base64.b64encode(f.read()).decode("utf-8")
+
+    st.markdown(
+        f"""
+        <div style="margin-top:-.5%;margin-left:-5%;">
+            <img src="data:image/png;base64,{data}" width="200" height="100">
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
 def intro():
     import streamlit as st
@@ -60,38 +70,6 @@ def business_type_predict():
     import base64
     import streamlit as st
     import streamlit.components.v1 as components
-
-    # # Load the serialized object from the pickle file
-    # with open('label_encoder.pkl', 'rb') as file:
-        # label_encoders = pickle.load(file)
-
-        # NAICS Code Dictionary
-        # Naics_Dict = {'11':'Agriculture, Forestry, Fishing and Hunting',
-        # '21':'Mining',
-        # '22':'Utilities',
-        # '23':'Construction',
-        # '31':'Manufacturing',
-        # '32':'Manufacturing',
-        # '33':'Manufacturing',
-        # '42':'Wholesale Trade',
-        # '43':'Wholesale Trade',
-        # '44':'Retail Trade',
-        # '45':'Retail Trade',
-        # '48':'Transportation and Warehousing',
-        # '49':'Transportation and Warehousing',
-        # '51':'Information',
-        # '52':'Finance and Insurance',
-        # '53':'Real Estate Rental and Leasing',
-        # '54':'Professional, Scientific, and Technical Services',
-        # '55':'Management of Companies and Enterprises',
-        # '56':'Administrative and Support and Waste… Services',
-        # '61':'Educational Services',
-        # '62':'Health Care and Social Assistance',
-        # '71':'Arts, Entertainment, and Recreation',
-        # '72':'Accommodation and Food Services',
-        # '81':'Other Services (except Public Administration)',
-        # '92':'Public Administration'}
-
 
 
     def construct_sample(input):
@@ -222,26 +200,6 @@ def business_type_predict():
     html_temp = "<div class='tableauPlaceholder' id='viz1711381846728' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ID&#47;IDS_560_dashboard&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='IDS_560_dashboard&#47;Dashboard1' /><param name='tabs' value='yes' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ID&#47;IDS_560_dashboard&#47;Dashboard1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1711381846728');                    var vizElement = divElement.getElementsByTagName('object')[0];                 if ( divElement.offsetWidth > 800 ) { vizElement.style.width='2850px';vizElement.style.height='1727px';}else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='2850px';vizElement.style.height='1727px';} else { vizElement.style.width='100%';vizElement.style.height='2077px';}               var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>"
     components.html(html_temp)
 
-    def redirect_button(url: str, text: str= None, color="#FD504D"):
-      st.markdown(
-      f"""
-      <a href="{url}" target="_self">
-          <div style="
-              display: inline-block;
-              padding: 0.5em 1em;
-              color: #FFFFFF;
-              background-color: {color};
-              border-radius: 3px;
-              text-decoration: none;">
-              {text}
-          </div>
-      </a>
-      """,
-      unsafe_allow_html=True
-      )
-
-      redirect_button(url,"this leads to the tableau dashboard")
-
     def main():
       import pickle
       # Load the serialized object from the pickle file
@@ -252,25 +210,21 @@ def business_type_predict():
       with open('label_encoder.pkl', 'rb') as file:
         label_encoders = pickle.load(file)
 
+
+
     html_temp = "<div class='tableauPlaceholder' id='viz1710733360364' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ID&#47;IDS_560_dashboard&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='IDS_560_dashboard&#47;Dashboard1' /><param name='tabs' value='yes' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ID&#47;IDS_560_dashboard&#47;Dashboard1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1710733360364');                    var vizElement = divElement.getElementsByTagName('object')[0];                    if ( divElement.offsetWidth > 800 ) { vizElement.style.minWidth='1620px';vizElement.style.maxWidth='1720px';vizElement.style.width='100%';vizElement.style.minHeight='818px';vizElement.style.maxHeight='910px';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.minWidth='1620px';vizElement.style.maxWidth='1720px';vizElement.style.width='100%';vizElement.style.minHeight='818px';vizElement.style.maxHeight='910px';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else { vizElement.style.width='100%';vizElement.style.height='1250px';}                     var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>"
     components.html(html_temp)
 
-    output_html= """
-    <div style = "background-color:#F08080;padding:10px >
-    <h2 style = "color:black; text-align: center;"> Business Type Won</h2>
-    </div>
-    """
-
     if st.button ("Predict the business type to win the contract"):
-      output = run_pred_model_business_type(select_agencyid,select_contracttype,select_naicscode,select_pricipalplaceofperformancestate,
+        output = run_pred_model_business_type(select_agencyid,select_contracttype,select_naicscode,select_pricipalplaceofperformancestate,
                     select_pricipalplaceofperformancecountry,select_entity,select_performancebasedservice,select_extentcompeted,select_solicitationprocedures,
                     select_localareasetaside,select_vendoraddresstatename,select_vendoraddresscountryname,select_laborstandards,
                     select_vendorbusinesstypeforProfit,select_vendorbusinesstypeallawards,select_vendorbusinesstypecorprateentity,
                     select_vendorbusinesstypeManufactofgoods,select_contractvalue,select_contractduration,select_countryofprodservorigin)
 
-          #st.success('The business that will win the contract is{}'.format(output))
-          #st.table(output)
-      st.dataframe(output.style.highlight_max(axis=1))
+        st.success('The business that will win the contract is{}'.format(output))
+        st.table(output)
+    #st.dataframe(output.style.highlight_max(axis=1))
 
     if __name__ == "__main__":
           main()
@@ -357,47 +311,9 @@ def contract_duration_predict():
     import streamlit as st
     import streamlit.components.v1 as components
 
-
-          # def first_19_inputs():
-              # with open('label_encoder.pkl', 'rb') as file:
-              #         label_encoders = pickle.load(file)
-
-              # X_test = np.zeros(19)
-              # X_test[0] = label_encoders['Contracting Agency ID'].transform([input[0]])
-              # X_test[1] = label_encoders['Domestic or Foreign Entity'].transform([input[5]])
-              # X_test[2] = label_encoders['Is Performance Based Service Acquisition'].transform([input[6]])
-              # X_test[3] = label_encoders['Type of Contract'].transform([input[1]])
-              # X_test[4] = label_encoders['NAICS Code'].transform([input[2][:2]])
-              # X_test[5] = label_encoders['Principal Place of Performance State Code'].transform([input[3]])
-              # X_test[6] = label_encoders['Principal Place of Performance Country Name'].transform([input[4]])
-              # X_test[7] = label_encoders['Country of Product or Service Origin'].transform([input[19]])
-              # X_test[8] = label_encoders['Extent Competed'].transform([input[7]])
-              # X_test[9] = label_encoders['Solicitation Procedures'].transform([input[8]])
-              # X_test[10] = label_encoders['Local Area Set Aside'].transform([input[9]])
-              # X_test[11] = label_encoders['Vendor Address State Name'].transform([input[10]])
-              # X_test[12] = label_encoders['Vendor Address Country Name'].transform([input[11]])
-              # X_test[13] = label_encoders['Labor Standards'].transform([input[12]])
-              # X_test[14] = label_encoders['Is Vendor Business Type - For Profit Organization'].transform([input[13]])
-              # X_test[15] = label_encoders['Is Vendor Business Type - All Awards'].transform([input[14]])
-              # X_test[16] = label_encoders['Is Vendor Business Type - Corporate Entity, Not Tax Exempt'].transform([input[15]])
-              # X_test[17] = label_encoders['Is Vendor Business Type - Manufacturer Of Goods'].transform([input[16]])
-              # X_test[18] = label_encoders['Business Type'].transform([input[16]])
-              # X_test[19] = label_encoders['Base and All Options Value (Total Contract Value)'].transform(np.array([input[17]]).reshape(-1, 1))
-
-              # return X_test
+        
 
     def construct_sample_duration(input):
-
-        # # Load the serialized object from the pickle file
-        # with open('label_encoder.pkl', 'rb') as file:
-        #   label_encoders = pickle.load(file)
-
-        # #Get rid of the repetition of the lines - defined at the bottom of this cell
-        # X_test = first_19_inputs()
-        # #appending the last input - "Business Type"
-        # X_test = np.append(X_test, label_encoders['Business Type'].transform(np.array([input[18]]).reshape(-1, 1)))
-
-        # return X_test
 
         # Load the serialized object from the pickle file
         with open('label_encoder.pkl', 'rb') as file:
@@ -441,11 +357,6 @@ def contract_duration_predict():
                           select_contractvalue,select_countryofprodservorigin,select_businesstype]
 
       X_test = construct_sample_duration(input)
-
-          # Load the serialized object from the pickle file -> change for duration model
-          # for durration writing would need to inlude this in the other script with the model:
-              # with open('dur_xgb.pkl', 'wb') as file:
-              #   pickle.dump(xgb_r, file)
 
       # Load the serialized object from the pickle file -> change for duration model
       with open('dur_xgb.pkl', 'rb') as file:
@@ -533,28 +444,43 @@ def contract_duration_predict():
     html_temp1 = "<div class='tableauPlaceholder' id='viz1711381846728' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ID&#47;IDS_560_dashboard&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='IDS_560_dashboard&#47;Dashboard1' /><param name='tabs' value='yes' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ID&#47;IDS_560_dashboard&#47;Dashboard1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1711381846728');                    var vizElement = divElement.getElementsByTagName('object')[0];                 if ( divElement.offsetWidth > 800 ) { vizElement.style.width='2850px';vizElement.style.height='1727px';}else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='2850px';vizElement.style.height='1727px';} else { vizElement.style.width='100%';vizElement.style.height='2077px';}               var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>"
     components.html(html_temp1)
 
-    def redirect_button(url: str, text: str= None, color="#FD504D"):
-      st.markdown(
-      f"""
-      <a href="{url}" target="_self">
-          <div style="
-              display: inline-block;
-              padding: 0.5em 1em;
-              color: #FFFFFF;
-              background-color: {color};
-              border-radius: 3px;
-              text-decoration: none;">
-              {text}
-          </div>
-      </a>
-      """,
-      unsafe_allow_html=True
-      )
-
-      redirect_button(url,"this leads to the tableau dashboard")
 
     def main():
       import pickle
+      import pandas as pd
+      import os
+      import seaborn as sns
+      import matplotlib.pyplot as plt
+      import numpy as np
+      from sklearn import preprocessing
+      from sklearn.preprocessing import MinMaxScaler
+      from sklearn.model_selection import train_test_split
+      import pickle
+      from sklearn.metrics import confusion_matrix
+      from sklearn import metrics
+      from sklearn.model_selection import cross_validate
+      from sklearn.tree import DecisionTreeClassifier
+      from sklearn.model_selection import GridSearchCV, cross_validate
+      from sklearn.tree import DecisionTreeClassifier
+      from sklearn.ensemble import RandomForestClassifier
+      from sklearn.model_selection import RandomizedSearchCV
+      from sklearn.ensemble import RandomForestClassifier
+      from sklearn.metrics import accuracy_score, f1_score
+      import numpy as np
+      from sklearn.inspection import permutation_importance
+      from sklearn.neighbors import KNeighborsClassifier
+      from sklearn.neighbors import KNeighborsClassifier
+      from sklearn.model_selection import RandomizedSearchCV, cross_validate
+      from sklearn.metrics import make_scorer, accuracy_score, f1_score
+      from sklearn import linear_model
+      from sklearn.metrics import r2_score
+      from sklearn.linear_model import Ridge
+      from sklearn.model_selection import GridSearchCV
+      from sklearn.linear_model import Lasso
+      import xgboost as xg
+      from sklearn.metrics import mean_squared_error as MSE
+      from sklearn.metrics import accuracy_score
+      from sklearn.linear_model import Ridge
       # Load the serialized object from the pickle file
       with open('dur_xgb.pkl', 'rb') as file:
         loaded_model = pickle.load(file)
