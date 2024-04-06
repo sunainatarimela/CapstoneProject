@@ -216,7 +216,7 @@ def business_type_predict():
     components.html(html_temp)
 
     if st.button ("Predict the business type to win the contract"):
-       output = run_pred_model_business_type(select_agencyid,select_contracttype,select_naicscode,select_pricipalplaceofperformancestate,
+        output = run_pred_model_business_type(select_agencyid,select_contracttype,select_naicscode,select_pricipalplaceofperformancestate,
                     select_pricipalplaceofperformancecountry,select_entity,select_performancebasedservice,select_extentcompeted,select_solicitationprocedures,
                     select_localareasetaside,select_vendoraddresstatename,select_vendoraddresscountryname,select_laborstandards,
                     select_vendorbusinesstypeforProfit,select_vendorbusinesstypeallawards,select_vendorbusinesstypecorprateentity,
