@@ -431,9 +431,25 @@ def contract_duration_predict():
     st.write("# Predicting the Duration of contract")
     st.markdown(
         """
-        ** You are now ready to predict which Business Type will win the contract.**
+        Before predicting the Duration of the contract, you can see the latest trands and visualizations by clicking on the link provided.
+        """
+        )
+    def open_page(url):
+        open_script= """
+        <script type="text/javascript">
+             window.open('%s', '_blank').focus();
+        </script>
+        """ % (url)
+        html(open_script)
+
+    st.button('Click to view tableau dashboard', on_click=open_page, args=('https://public.tableau.com/views/IDS_560_dashboard/Dashboard1?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link',))
+
+    
+    st.markdown(
+        """
+            Let's now predict the duration of the contract.
             Please fill out the fields on the left and click on the button below to see the output.
-            You can also see the latest trands by clicking on the tableau dashboard link provided.
+            You will also see the probability of other Business Types winning a contract with the inputs provided.
 
         """
         )
@@ -497,10 +513,7 @@ def contract_duration_predict():
     select_countryofprodservorigin = st.sidebar.selectbox('Country of Product or Service Origin',
                                         ['UNITED STATES','INDIA','CANADA','MEXICO'])
 
-    html_temp1 = "<div class='tableauPlaceholder' id='viz1711381846728' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ID&#47;IDS_560_dashboard&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='IDS_560_dashboard&#47;Dashboard1' /><param name='tabs' value='yes' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ID&#47;IDS_560_dashboard&#47;Dashboard1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1711381846728');                    var vizElement = divElement.getElementsByTagName('object')[0];                 if ( divElement.offsetWidth > 800 ) { vizElement.style.width='2850px';vizElement.style.height='1727px';}else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='2850px';vizElement.style.height='1727px';} else { vizElement.style.width='100%';vizElement.style.height='2077px';}               var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>"
-    components.html(html_temp1)
-
-
+   
     def main():
       import pickle
       import pandas as pd
