@@ -158,17 +158,6 @@ def business_type_predict():
     #st.markdown(f'[Open Tableau Dashboard]({tableau_dashboard_url}){:target="_blank"}', unsafe_allow_html=True)
 
    
-
-    def open_page(url):
-        open_script= """
-            <script type="text/javascript">
-                window.open('%s', '_blank').focus();
-            </script>
-        """ % (url)
-        html(open_script)
-
-    st.button('Click to view tableau dashboard', on_click=open_page, args=('https://public.tableau.com/views/IDS_560_dashboard/Dashboard1?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link',))
-
     st.write("# Predicting the Business Type that will win the contract")
     st.markdown(
         """
@@ -179,6 +168,15 @@ def business_type_predict():
         """
         )
 
+    def open_page(url):
+    open_script= """
+    <script type="text/javascript">
+         window.open('%s', '_blank').focus();
+    </script>
+    """ % (url)
+    html(open_script)
+
+    st.button('Click to view tableau dashboard', on_click=open_page, args=('https://public.tableau.com/views/IDS_560_dashboard/Dashboard1?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link',))
 
 
     #-- Set business type
