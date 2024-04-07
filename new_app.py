@@ -31,16 +31,16 @@ def set_background(png_file):
     st.markdown(page_bg_img, unsafe_allow_html=True)
 set_background("GovernmentContract_2.png")
 
-with open("uicbusiness.png", "rb") as f:
-    data = base64.b64encode(f.read()).decode("utf-8")
-    st.markdown(
-    f"""
-    <div style="margin-top:-.5%;margin-left:-5%;">
-    <img src="data:image/png;base64,{data}" width="200" height="100">
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
+#with open("uicbusiness.png", "rb") as f:
+ #   data = base64.b64encode(f.read()).decode("utf-8")
+  #  st.markdown(
+   # f"""
+    #<div style="margin-top:-.5%;margin-left:-5%;">
+    #<img src="data:image/png;base64,{data}" width="200" height="100">
+    #</div>
+    #""",
+    #unsafe_allow_html=True,
+#)
 
 def intro():
     import streamlit as st
