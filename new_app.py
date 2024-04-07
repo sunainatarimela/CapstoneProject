@@ -68,8 +68,6 @@ def intro():
         👈 Select an option from the dropdown on the left to see the business type that would win a contract
     """
     )
-
-
     footer_html = """
     <style>
     .footer {
