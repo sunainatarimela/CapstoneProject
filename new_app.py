@@ -78,23 +78,23 @@ def intro():
     """
     )
     
-    footer="""<style>
-   .footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: white;
-    color: black;
-    text-align: center;
-    }
-    """
-    </style>
-    <div class="footer">
-    <p> Developed with by <a style='display: block; text-align: center;'>Aarsh Vyas, Janhavi Gulabani, Nabila Fakhruddin, Sunaina Tarimela, Vojtech Mensik</a></p>
-    </div>
+    #footer="""<style>
+   #.footer {
+    #position: fixed;
+    #left: 0;
+    #bottom: 0;
+    #width: 100%;
+    #background-color: white;
+    #color: black;
+    #text-align: center;
+    #}
+    #"""
+    #</style>
+    #<div class="footer">
+    #<p> Developed with by <a style='display: block; text-align: center;'>Aarsh Vyas, Janhavi Gulabani, Nabila Fakhruddin, Sunaina Tarimela, Vojtech Mensik</a></p>
+    #</div>
     
-    st.markdown(footer,unsafe_allow_html=True)
+    #st.markdown(footer,unsafe_allow_html=True)
     
     
     #images = ['l1-modified.PNG', 'l3-modified.PNG', 'l4-modified.PNG','l2-modified.PNG','l5-modified.PNG']
