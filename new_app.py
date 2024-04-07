@@ -25,6 +25,11 @@ def set_background(png_file):
     background-image: linear-gradient(rgba(255,255,255,0.75), rgba(255,255,255,0.75)), url("data:image/png;base64,%s");
     background-size:cover;
     background-repeat:no-repeat;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    width: 100%;
+    height: 100%;
     }
     </style>
     ''' % bin_str
