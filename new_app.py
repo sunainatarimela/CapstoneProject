@@ -11,25 +11,24 @@ import base64
 apptitle = 'Gov Contracts'
 st.set_page_config(page_title=apptitle, page_icon=":book:")
 
-def get_base64(bin_file):
-    with open(bin_file, 'rb') as f:
-        data = f.read()
-    return base64.b64encode(data).decode()
+original_title = '<h1 style="font-family: serif; color:white; font-size: 20px;">Streamlit CSS Styling✨ </h1>'
+st.markdown(original_title, unsafe_allow_html=True)
 
-def set_png_as_page_bg(png_file):
-    bin_str = get_base64(png_file)
-    page_bg_img = '''
-    <style>
-    body {
-    background-image: url("data:image/png;base64,%s");
-    }
-    </style>
-    ''' %bin_str
-    
-    st.markdown(page_bg_img, unsafe_allow_html=True)
-    return
 
-set_png_as_page_bg('GovernmentContract.png')
+# Set the background image
+background_image = """
+<style>
+[data-testid="stAppViewContainer"] > .main {
+    background-image: url("https://infograph.venngage.com/pl/v40BFBJYFZk");
+    background-size: 100vw 100vh;  # This sets the size to cover 100% of the viewport width and height
+    background-position: center;  
+    background-repeat: no-repeat;
+}
+</style>
+"""
+
+st.markdown(background_image, unsafe_allow_html=True)
+
 
 #with open("uicbusiness.png", "rb") as f:
  #   data = base64.b64encode(f.read()).decode("utf-8")
