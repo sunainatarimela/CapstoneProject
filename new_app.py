@@ -152,10 +152,10 @@ def business_type_predict():
         return prob_df
 
 
-    tableau_dashboard_url = "https://public.tableau.com/views/IDS_560_dashboard/Dashboard1?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link"
+    #tableau_dashboard_url = "https://public.tableau.com/views/IDS_560_dashboard/Dashboard1?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link"
 
     # Create a clickable link that opens in a new tab
-    st.markdown(f'[Open Tableau Dashboard]({tableau_dashboard_url}){:target="_blank"}', unsafe_allow_html=True)
+    #st.markdown(f'[Open Tableau Dashboard]({tableau_dashboard_url}){:target="_blank"}', unsafe_allow_html=True)
 
    
 
