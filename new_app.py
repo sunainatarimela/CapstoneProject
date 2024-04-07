@@ -46,7 +46,7 @@ set_background("GovernmentContract_4.png")
 def intro():
     import streamlit as st
 
-    st.write("# Government contract data prediction during a pandemic")
+    st.write("# Government Contracts in the Pandemic Era: A Comprehensive Analysis")
     st.sidebar.success("Select an option above.")
 
     st.markdown(
