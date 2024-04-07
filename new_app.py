@@ -76,6 +76,9 @@ def intro():
 
     """
     )
+    images = ['l1-modified.PNG', 'l3-modified.PNG', 'l4-modified.PNG','l2-modified.PNG','l5-modified.PNG']
+    text = ['Aarsh Vyas','Janhavi Gulabani','Nabila Fakhruddin','Sunaina Tarimela','Vojtech Mensik']
+    st.image(images, use_column_width=True, caption=["some generic text"] * len(images))
                                                               # """THIS ONE WORKS"""
 def business_type_predict():
     import pandas as pd
