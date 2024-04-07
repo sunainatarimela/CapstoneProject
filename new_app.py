@@ -68,20 +68,18 @@ def intro():
         👈 Select an option from the dropdown on the left to see the business type that would win a contract
     """
     )
+
+    st.markdown(
+    """
+
+    ---------------------------------------------------------------------------------------------------
+    Aarsh Vyas, Janhavi Gulabani, Nabila Fakhruddin, Sunaina Tarimela, Vojtech Mensik
+
+    """
+    )
+    
     footer="""<style>
-    a:link , a:visited{
-    color: blue;
-    background-color: transparent;
-    text-decoration: underline;
-    }
-
-    a:hover,  a:active {
-    color: red;
-    background-color: transparent;
-    text-decoration: underline;
-    }
-
-    .footer {
+   .footer {
     position: fixed;
     left: 0;
     bottom: 0;
@@ -92,18 +90,12 @@ def intro():
     }
     </style>
     <div class="footer">
-    <p>Developed with ❤ by <a style='display: block; text-align: center;' href="https://www.heflin.dev/" target="_blank">Heflin Stephen Raj S</a></p>
+    <p> Developed with by <a style='display: block; text-align: center;'>Aarsh Vyas, Janhavi Gulabani, Nabila Fakhruddin, Sunaina Tarimela, Vojtech Mensik</a></p>
     </div>
     """
     st.markdown(footer,unsafe_allow_html=True)
-    st.markdown(
-    """
-
-    ---------------------------------------------------------------------------------------------------
-    Aarsh Vyas, Janhavi Gulabani, Nabila Fakhruddin, Sunaina Tarimela, Vojtech Mensik
-
-    """
-    )
+    
+    
     #images = ['l1-modified.PNG', 'l3-modified.PNG', 'l4-modified.PNG','l2-modified.PNG','l5-modified.PNG']
     #text = ['Aarsh Vyas','Janhavi Gulabani','Nabila Fakhruddin','Sunaina Tarimela','Vojtech Mensik']
     #st.image(images, width=100, caption=text)
