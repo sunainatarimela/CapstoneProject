@@ -593,7 +593,7 @@ def contract_duration_predict():
        main()
 
 page_names_to_funcs = {
-    "—": intro,
+    "Home Page": intro,
     "Predict Business Type": business_type_predict,
     "Predict Contract Value": contract_value_predict,
     "Predict Contract Duration": contract_duration_predict
