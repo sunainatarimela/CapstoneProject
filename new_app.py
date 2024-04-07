@@ -48,7 +48,7 @@ def intro():
     st.write("# Government contract data prediction during a pandemic")
     st.sidebar.success("Select an option above.")
 
-    st.markdown('<div style="text-align: center;">
+    st.markdown(
         """
         WELCOME!
 
@@ -56,17 +56,19 @@ def intro():
         vendors to complete the task at hand. There are some contracts 
         that are released everyday depending on the need of the related 
         government agency.
+
+        ---------------------------------------------------------------
         
         One of the websites to get updated government contracts related 
         information is [sam.gov](https://sam.gov/content/home)
-        
+       
         If you are a vendor for government contracts and want to see 
         details about the contract assignments, then you are at the 
         right place!
         
         👈 Select an option from the dropdown on the left to see the business type that would win a contract
     """
-   </div>', unsafe_allow_html=True )
+    )
                                                               # """THIS ONE WORKS"""
 def business_type_predict():
     import pandas as pd
