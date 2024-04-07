@@ -21,13 +21,13 @@ def set_background(png_file):
     page_bg_img = '''
     <style>
     .stApp {
-    background-image: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url("data:image/png;base64,%s");
+    background-image: url("data:image/png;base64,%s");
     background-size: cover;
     }
     </style>
     ''' % bin_str
     st.markdown(page_bg_img, unsafe_allow_html=True)
-set_background("govcontracts.jpg")
+set_background("GovernmentContract.png")
 
 with open("uicbusiness.png", "rb") as f:
     data = base64.b64encode(f.read()).decode("utf-8")
