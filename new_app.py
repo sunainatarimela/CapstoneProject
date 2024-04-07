@@ -12,26 +12,23 @@ apptitle = 'Gov Contracts'
 st.set_page_config(page_title=apptitle, page_icon=":book:")
 
 
-def get_base64_of_bin_file(bin_file):
+def get_base64(bin_file):
     with open(bin_file, 'rb') as f:
         data = f.read()
     return base64.b64encode(data).decode()
 
-def set_png_as_page_bg(png_file):
-    bin_str = get_base64_of_bin_file(png_file)
+def set_background(png_file):
+    bin_str = get_base64(png_file)
     page_bg_img = '''
     <style>
-    body {
-    background-image: url("data:image/png;base64,%s");
+    .stApp {
+    background-image: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url("data:image/png;base64,%s");
     background-size: cover;
     }
     </style>
     ''' % bin_str
-    
     st.markdown(page_bg_img, unsafe_allow_html=True)
-    return
-
-set_png_as_page_bg('GovernmentContract.png')
+set_background("govcontracts.jpg")
 
 with open("uicbusiness.png", "rb") as f:
     data = base64.b64encode(f.read()).decode("utf-8")
