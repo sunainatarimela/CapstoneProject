@@ -23,7 +23,7 @@ def set_background(png_file):
     <style>
     .stApp {
     background-image: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url("data:image/png;base64,%s");
-    background-size:75% 50%;
+    background-size:auto;
     background-repeat:no-repeat;
     }
     </style>
