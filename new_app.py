@@ -31,23 +31,6 @@ def set_png_as_page_bg(png_file):
 
 set_png_as_page_bg('GovernmentContract.png')
 
-
-with open("GovernmentContract.png", "rb") as f:
-    data = base64.b64encode(f.read()).decode("utf-8")
-
-    st.markdown(
-        f"""
-        <div style>
-            <style>
-               .stApp {
-                  background-image: url("data:image/png;base64,%s")
-                  background-size: cover}
-                </style>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
 #with open("uicbusiness.png", "rb") as f:
  #   data = base64.b64encode(f.read()).decode("utf-8")
 
