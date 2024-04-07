@@ -26,10 +26,6 @@ def set_background(png_file):
     background-size:cover;
     background-repeat:no-repeat;
     position: absolute;
-    bottom: 0px;
-    right: 0px;
-    width: 100%;
-    height: 100%;
     }
     </style>
     ''' % bin_str
