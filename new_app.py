@@ -11,41 +11,27 @@ import base64
 apptitle = 'Gov Contracts'
 st.set_page_config(page_title=apptitle, page_icon=":book:")
 
-original_title = '<h1 style="font-family: serif; color:white; font-size: 20px;">Streamlit CSS Styling✨ </h1>'
-st.markdown(original_title, unsafe_allow_html=True)
+@st.cache(allow_output_mutation=True)
+def get_base64_of_bin_file(bin_file):
+    with open(bin_file, 'rb') as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
 
+def set_png_as_page_bg(png_file):
+    bin_str = get_base64_of_bin_file(png_file)
+    page_bg_img = '''
+    <style>
+    body {
+    background-image: url("data:image/png;base64,%s");
+    background-size: cover;
+    }
+    </style>
+    ''' % bin_str
+    
+    st.markdown(page_bg_img, unsafe_allow_html=True)
+    return
 
-# Set the background image
-background_image = """
-<style>
-[data-testid="stAppViewContainer"] > .main {
-    background-image: url("https://infograph.venngage.com/pl/v40BFBJYFZk");
-    background-size: 100vw 100vh; # This sets the size to cover 100% of the viewport width and height
-    background-position: center;
-    background-repeat: no-repeat;
-}
-</style>
-"""
-
-st.markdown(background_image, unsafe_allow_html=True)
-
-st.text_input("", placeholder="Streamlit CSS ")
-
-input_style = """
-<style>
-input[type="text"] {
-    background-color: transparent;
-    color: #a19eae;  // This changes the text color inside the input box
-}
-div[data-baseweb="base-input"] {
-    background-color: transparent !important;
-}
-[data-testid="stAppViewContainer"] {
-    background-color: transparent !important;
-}
-</style>
-"""
-st.markdown(input_style, unsafe_allow_html=True)
+set_png_as_page_bg('GovernmentContract.png')
 
 #with open("uicbusiness.png", "rb") as f:
  #   data = base64.b64encode(f.read()).decode("utf-8")
