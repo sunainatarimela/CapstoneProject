@@ -56,8 +56,6 @@ def intro():
         vendors to complete the task at hand. There are some contracts 
         that are released everyday depending on the need of the related 
         government agency.
-
-        ---------------------------------------------------------------
         
         One of the websites to get updated government contracts related 
         information is [sam.gov](https://sam.gov/content/home)
@@ -67,6 +65,15 @@ def intro():
         right place!
         
         👈 Select an option from the dropdown on the left to see the business type that would win a contract
+    """
+    )
+
+    st.markdown(
+    """
+
+    ---------------------------------------------------------------------------------------------------
+
+
     """
     )
                                                               # """THIS ONE WORKS"""
