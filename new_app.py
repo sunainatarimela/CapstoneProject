@@ -242,7 +242,7 @@ def business_type_predict():
 
         #st.success('The business that will win the contract is{}'.format(output))
         #st.table(output)
-    st.dataframe(output.style.highlight_max(axis=1))
+        st.dataframe(output.style.highlight_max(axis=1))
 
     if __name__ == "__main__":
           main()
