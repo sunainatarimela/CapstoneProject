@@ -76,23 +76,6 @@ def intro():
     """
     )
 
-    footer_html = """
-    <style>
-    .footer {
-        position: fixed;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        background-color: white;
-        color: black;
-        text-align: center;
-    }
-    </style>
-    <div class="footer">
-        <p>Made with ❤️ by <a href="https://yourwebsite.com" target="_blank">Your Name</a></p>
-    </div>
-    """
-components.html(footer_html, height=50)
                                                                
 def business_type_predict():
     import pandas as pd
