@@ -198,6 +198,7 @@ def business_type_predict():
         """
             Let's now predict which Business Type will win the contract.
             Please fill out the fields on the left and click on the button below to see the output.
+            You will also see the probability of other Business Types winning a contract with the inputs provided.
 
         """
         )
