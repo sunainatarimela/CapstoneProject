@@ -45,6 +45,7 @@ set_background("GovernmentContract_4.png")
 
 def intro():
     import streamlit as st
+    import streamlit.components.v1 as components
 
     st.write("# Government Contracts in the Pandemic Era: A Comprehensive Analysis")
     st.sidebar.success("Select an option above.")
@@ -68,6 +69,7 @@ def intro():
         👈 Select an option from the dropdown on the left to see the business type that would win a contract
     """
     )
+
     footer_html = """
     <style>
     .footer {
@@ -81,11 +83,11 @@ def intro():
     }
     </style>
     <div class="footer">
-        <p>Made with ❤️ by <a href="https://www.google.com" target="_blank">Your Name</a></p>
+        <p>Made with ❤️ by <a href="https://yourwebsite.com" target="_blank">Your Name</a></p>
     </div>
     """
 components.html(footer_html, height=50)
-                                                            
+                                                               
 def business_type_predict():
     import pandas as pd
     import numpy as np
