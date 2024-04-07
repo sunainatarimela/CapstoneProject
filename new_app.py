@@ -22,10 +22,7 @@ def set_png_as_page_bg(png_file):
     <style>
     body {
     background-image: url("data:image/png;base64,%s");
-    #background-size: cover;
     background-size: contain;
-    background-repeat: no-repeat;
-    background-attachment: scroll; # doesn't work
     }
     </style>
     ''' % bin_str
