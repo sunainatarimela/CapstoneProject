@@ -42,6 +42,25 @@ set_background("GovernmentContract_4.png")
     #""",
     #unsafe_allow_html=True,
 #)
+footer_html = """
+    <style>
+    .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: white;
+        color: black;
+        text-align: center;
+    }
+    </style>
+    <div class="footer">
+        <p>Made with ❤️ by <a href="https://www.google.com" target="_blank">Your Name</a></p>
+    </div>
+    """
+components.html(footer_html, height=50)
+
+
 
 def intro():
     import streamlit as st
