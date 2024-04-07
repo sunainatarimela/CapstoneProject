@@ -68,17 +68,6 @@ def intro():
         👈 Select an option from the dropdown on the left to see the business type that would win a contract
     """
     )
-
-    st.markdown(
-    """
-    
-    ---------------------------------------------------------------------------------------------------
-    Aarsh Vyas, Janhavi Gulabani, Nabila Fakhruddin, Sunaina Tarimela, Vojtech Mensik
-    
-
-    """
-    )
-    
                                                             
 def business_type_predict():
     import pandas as pd
