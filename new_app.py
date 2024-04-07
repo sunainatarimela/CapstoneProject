@@ -11,7 +11,7 @@ import base64
 apptitle = 'Gov Contracts'
 st.set_page_config(page_title=apptitle, page_icon=":book:")
 
-@st.cach_data(allow_output_mutation=True)
+
 def get_base64_of_bin_file(bin_file):
     with open(bin_file, 'rb') as f:
         data = f.read()
