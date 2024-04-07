@@ -47,6 +47,12 @@ def intro():
     import streamlit as st
     import streamlit.components.v1 as components
 
+    import pandas as pd
+    import numpy as np
+    import pickle
+    import requests, os
+    import base64
+
     st.write("# Government Contracts in the Pandemic Era: A Comprehensive Analysis")
     st.sidebar.success("Select an option above.")
 
