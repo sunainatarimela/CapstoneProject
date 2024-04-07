@@ -177,17 +177,12 @@ def business_type_predict():
     # Create a clickable link that opens in a new tab
     #st.markdown(f'[Open Tableau Dashboard]({tableau_dashboard_url}){:target="_blank"}', unsafe_allow_html=True)
 
-   
     st.write("# Predicting the Business Type that will win the contract")
     st.markdown(
         """
-        ** You are now ready to predict which Business Type will win the contract.**
-            Please fill out the fields on the left and click on the button below to see the output.
-            You can also see the latest trands by clicking on the tableau dashboard link provided.
-
+        Before predicting the Business Type to win the contract, you can see the latest trands and visualizations by clicking on the link provided.
         """
         )
-
     def open_page(url):
         open_script= """
         <script type="text/javascript">
@@ -198,7 +193,15 @@ def business_type_predict():
 
     st.button('Click to view tableau dashboard', on_click=open_page, args=('https://public.tableau.com/views/IDS_560_dashboard/Dashboard1?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link',))
 
+    
+    st.markdown(
+        """
+            Let's now predict which Business Type will win the contract.
+            Please fill out the fields on the left and click on the button below to see the output.
 
+        """
+        )
+    
     #-- Set business type
 
     select_agencyid = st.sidebar.text_input(label="Contracting Agency ID", placeholder="1406")
