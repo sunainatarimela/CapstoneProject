@@ -293,69 +293,67 @@ def contract_value_predict():
     import base64
     import streamlit as st
     import streamlit.components.v1 as components
+    from streamlit.components.v1 import html
 
 
+    def get_base64(bin_file):
+        with open(bin_file, 'rb') as f:
+            data = f.read()
+        return base64.b64encode(data).decode()
 
-    def run_pred_model_business_type (select_businesstype: str,select_agencyid : str,select_contracttype : str,select_naicscode : str,select_pricipalplaceofperformancestate : str,
-                    select_pricipalplaceofperformancecountry: str,select_entity: str,select_performancebasedservice: str,select_extentcompeted: str,select_solicitationprocedures: str,
-                    select_localareasetaside: str,select_vendoraddresstatename: str,select_vendoraddresscountryname: str,select_laborstandards: str,
-                    select_vendorbusinesstypeforProfit: str,select_vendorbusinesstypeallawards: str,select_vendorbusinesstypecorprateentity: str,
-                    select_vendorbusinesstypeManufactofgoods: str,select_contractvalue: str,select_contractduration: str):
-        """Generate prediction."""
+    def set_background(png_file):
+        bin_str = get_base64(png_file)
+        page_bg_img = '''
+        <style>
+        .stApp {
+        background-image: linear-gradient(rgba(255,255,255,0.75), rgba(255,255,255,0.75)), url("data:image/png;base64,%s");
+        background-size:cover;
+        background-repeat:no-repeat;
+        position: absolute;
+        }
+        </style>
+        ''' % bin_str
+        st.markdown(page_bg_img, unsafe_allow_html=True)
+    set_background("GovernmentContract_Val.png") 
 
+    
+    select_value1 = st.sidebar.text_input(label="Contract Value Week1", placeholder="250000")
 
+    select_value2 = st.sidebar.text_input(label="Contract Value Week2", placeholder="250000")
 
-    #-- Set business type
+    select_value3 = st.sidebar.text_input(label="Contract Value Week3", placeholder="250000")
+    
+    select_value4 = st.sidebar.text_input(label="Contract Value Week4", placeholder="250000")
 
-    select_businesstype = st.sidebar.selectbox('What business type do you want to see?',
-                                        ['Women Owned','Veteran Owned', 'Small Business'])
+    select_value5 = st.sidebar.text_input(label="Contract Value Week5", placeholder="250000")
 
-    select_agencyid = st.sidebar.text_input(label="Contracting Agency ID", placeholder="1406")
+    select_contracttype = st.sidebar.radio("Contract type",('Expensive','Medium','Cheap'))
 
-    select_contracttype = st.sidebar.selectbox('Contract Type',
-                                        ['FIRM FIXED PRICE','TIME AND MATERIALS','LABOR HOURS','FIXED PRICE AWARD FEE','FIXED PRICE WITH ECONOMIC PRICE ADJUSTMENT','COST NO FEE','COST PLUS FIXED FEE','COST PLUS AWARD FEE','COST PLUS INCENTIVE FEE','FIXED PRICE INCENTIVE','FIXED PRICE LEVEL OF EFFORT','COST SHARING','FIXED PRICE REDETERMINATION'])
+    st.write("# Predicting the Contract Value")
+    st.markdown(
+        """
+        Before predicting the Contract Value, you can see the latest trands and visualizations by clicking on the link provided.
+        """
+        )
+    def open_page(url):
+        open_script= """
+        <script type="text/javascript">
+             window.open('%s', '_blank').focus();
+        </script>
+        """ % (url)
+        html(open_script)
 
-    select_naicscode = st.sidebar.text_input(label="NAICS Code", placeholder="622109")
+    st.button('Click to view tableau dashboard', on_click=open_page, args=('https://public.tableau.com/views/IDS_560_dashboard/Dashboard1?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link',))
 
-    select_pricipalplaceofperformancestate = st.sidebar.selectbox('Principal place of performance state code', ['VA','DC','CA','MD','IN','FL','NY','MO','CO','AK','LA','ID','WY','SD','MT','OR','WA','VT','PA','NM','NJ','IL','MN','TX','WV','AL','PR','KY','SC','NC','OK','GA','AR','MS','NE','MI','OH','IA','DE','NH','KS','WI','AZ','TN','CT','MA','HI','UT','RI','ME','ND','NV','AS','UGANDA','GU','FRANCE','VI','VIETNAM','CANADA','JAPAN','INDIA','CANADA','MEXICO'])
+    
+    st.markdown(
+        """
+            Let's now predict the Contract Value.
+            Please fill out the fields on the left and click on the button below to see the output.
 
-    select_pricipalplaceofperformancecountry = st.sidebar.selectbox('Principal place of performance country name',
-                                        ['UNITED STATES','UGANDA','FRANCE','VIETNAM','CANADA','JAPAN','UNITED KINGDOM','BAHRAIN','INDIA','CANADA','MEXICO'])
-
-    select_entity = st.sidebar.selectbox("Domestic or Foreign Entity",['U.S. OWNED BUSINESS','OTHER U.S. ENTITY (E.G. GOVERNMENT)','FOREIGN-OWNED BUSINESS INCORPORATED IN THE U.S.','FOREIGN-OWNED BUSINESS NOT INCORPORATED IN THE U.S.','OTHER FOREIGN ENTITY (E.G. FOREIGN GOVERNMENT)'])
-
-    select_performancebasedservice = st.sidebar.radio("Performance Based Service Acquisition",('NO - SERVICE WHERE PBA IS NOT USED.','YES - SERVICE WHERE PBA IS USED.','NOT APPLICABLE'))
-
-    select_extentcompeted = st.sidebar.selectbox('Extent Competed',
-                                        ['FULL AND OPEN COMPETITION','NOT COMPETED UNDER SAP','FULL AND OPEN COMPETITION AFTER EXCLUSION OF SOURCES','NOT COMPETED','COMPETED UNDER SAP','NOT AVAILABLE FOR COMPETITION'])
-
-    select_solicitationprocedures = st.sidebar.selectbox('Solicitation Procedures',
-                                        ['SUBJECT TO MULTIPLE AWARD FAIR OPPORTUNITY','SIMPLIFIED ACQUISITION','NEGOTIATED PROPOSAL/QUOTE','ONLY ONE SOURCE','ALTERNATIVE SOURCES','SEALED BID','ARCHITECT-ENGINEER FAR 6.102','BASIC RESEARCH','TWO STEP'])
-
-    select_localareasetaside = st.sidebar.radio("Local Area Set Aside",('YES','NO'))
-
-    select_vendoraddresstatename = st.sidebar.selectbox('Vendor Address State',
-                                        ['ILLINOIS','ARIZONA','TEXAS','CALIFORNIA','NEW YORK','NEW JERSEY','NORTH CAROLINA'])
-
-    select_vendoraddresscountryname = st.sidebar.selectbox('Vendor address country name',
-                                        ['UNITED STATES','INDIA','CANADA','MEXICO'])
-
-    select_laborstandards = st.sidebar.radio("Labor Standards",('YES','NO','NOT APPLICABLE'))
-
-    select_vendorbusinesstypeforProfit = st.sidebar.radio("Is Vendor Business type - For Profit Organisation",('YES','NO'))
-
-    select_vendorbusinesstypeallawards = st.sidebar.radio("Is Vendor Business type - All Awards ",('YES','NO'))
-
-    select_vendorbusinesstypecorprateentity = st.sidebar.radio("Is Vendor Business type - Corporate Entity, Not tax Exempt",('YES','NO'))
-
-    select_vendorbusinesstypeManufactofgoods = st.sidebar.radio("Is Vendor Business type - Manufacturer of Goods",('YES','NO'))
-
-    select_contractduration = st.sidebar.text_input(label="Contract Duration(in days)", placeholder="365")
-
-    select_countryofprodservorigin = st.sidebar.selectbox('Country of Product or Service Origin',
-                                        ['UNITED STATES','INDIA','CANADA','MEXICO'])
-    #html_temp = "<div class='tableauPlaceholder' id='viz1711381846728' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ID&#47;IDS_560_dashboard&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='IDS_560_dashboard&#47;Dashboard1' /><param name='tabs' value='yes' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ID&#47;IDS_560_dashboard&#47;Dashboard1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1711381846728');                    var vizElement = divElement.getElementsByTagName('object')[0];                 if ( divElement.offsetWidth > 800 ) { vizElement.style.width='2850px';vizElement.style.height='1727px';}else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='2850px';vizElement.style.height='1727px';} else { vizElement.style.width='100%';vizElement.style.height='2077px';}               var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>"
-    #components.html(html_temp)
+        """
+        )
+    st.button ("Predict the Contract Value"):
 
 
 def contract_duration_predict():
