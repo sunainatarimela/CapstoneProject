@@ -88,11 +88,12 @@ def intro():
     color: black;
     text-align: center;
     }
+    """
     </style>
     <div class="footer">
     <p> Developed with by <a style='display: block; text-align: center;'>Aarsh Vyas, Janhavi Gulabani, Nabila Fakhruddin, Sunaina Tarimela, Vojtech Mensik</a></p>
     </div>
-    """
+    
     st.markdown(footer,unsafe_allow_html=True)
     
     
