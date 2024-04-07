@@ -39,8 +39,10 @@ with open("GovernmentContract.png", "rb") as f:
         f"""
         <div style>
             <style>
-                background-image: "data:image/png;base64,{data}" width="1200" height="1100"
-           # <img src="data:image/png;base64,{data}" width="1200" height="1100">
+               .stApp {
+                  background-image: url("data:image/png;base64,%s")
+                  background-size: cover}
+                </style>
         </div>
         """,
         unsafe_allow_html=True,
