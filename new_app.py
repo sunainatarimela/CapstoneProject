@@ -16,18 +16,24 @@ def get_base64(bin_file):
         data = f.read()
     return base64.b64encode(data).decode()
 
-def set_background(png_file):
-    bin_str = get_base64(png_file)
+def set_png_as_page_bg(png_file):
+    bin_str = get_base64_of_bin_file(png_file)
     page_bg_img = '''
     <style>
-    .stApp {
+    body {
     background-image: url("data:image/png;base64,%s");
-    background-size: cover;
+    #background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-attachment: scroll; # doesn't work
     }
     </style>
     ''' % bin_str
+    
     st.markdown(page_bg_img, unsafe_allow_html=True)
-set_background("GovernmentContract.png")
+    return
+
+set_png_as_page_bg('GovernmentContract.png')
 
 with open("uicbusiness.png", "rb") as f:
     data = base64.b64encode(f.read()).decode("utf-8")
