@@ -72,7 +72,7 @@ def intro():
         details about the contract assignments, then you are at the 
         right place!
         
-        👈 Select an option from the dropdown on the left to see the business type that would win a contract
+        👈 Select an option from the dropdown on the left to see the predictions for Business Type, Contract Value and Contract duration
     """
     )
 
