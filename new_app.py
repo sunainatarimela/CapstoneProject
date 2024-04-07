@@ -72,6 +72,24 @@ def intro():
     st.markdown(
     """
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     ---------------------------------------------------------------------------------------------------
     Aarsh Vyas, Janhavi Gulabani, Nabila Fakhruddin, Sunaina Tarimela, Vojtech Mensik
 
