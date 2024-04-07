@@ -29,7 +29,7 @@ def set_background(png_file):
     </style>
     ''' % bin_str
     st.markdown(page_bg_img, unsafe_allow_html=True)
-set_background("GovernmentContract_3.png")
+set_background("GovernmentContract_4.png")
 
 #with open("uicbusiness.png", "rb") as f:
  #   data = base64.b64encode(f.read()).decode("utf-8")
@@ -45,7 +45,7 @@ set_background("GovernmentContract_3.png")
 def intro():
     import streamlit as st
 
-    st.write("# Welcome Government contract data prediction during a pandemic")
+    st.write("Government contract data prediction during a pandemic")
     st.sidebar.success("Select an option above.")
 
     st.markdown(
