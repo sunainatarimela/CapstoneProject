@@ -85,6 +85,7 @@ def business_type_predict():
     import base64
     import streamlit as st
     import streamlit.components.v1 as components
+    from streamlit.components.v1 import html
 
 
     def construct_sample(input):
@@ -155,6 +156,18 @@ def business_type_predict():
 
     # Create a clickable link that opens in a new tab
     st.markdown(f'[Open Tableau Dashboard]({tableau_dashboard_url}){:target="_blank"}', unsafe_allow_html=True)
+
+   
+
+    def open_page(url):
+        open_script= """
+            <script type="text/javascript">
+                window.open('%s', '_blank').focus();
+            </script>
+        """ % (url)
+        html(open_script)
+
+    st.button('Open link', on_click=open_page, args=('https://streamlit.io',))
 
     st.write("# Predicting the Business Type that will win the contract")
     st.markdown(
