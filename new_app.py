@@ -169,12 +169,12 @@ def business_type_predict():
         )
 
     def open_page(url):
-    open_script= """
-    <script type="text/javascript">
-         window.open('%s', '_blank').focus();
-    </script>
-    """ % (url)
-    html(open_script)
+        open_script= """
+        <script type="text/javascript">
+             window.open('%s', '_blank').focus();
+        </script>
+        """ % (url)
+        html(open_script)
 
     st.button('Click to view tableau dashboard', on_click=open_page, args=('https://public.tableau.com/views/IDS_560_dashboard/Dashboard1?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link',))
 
