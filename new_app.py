@@ -48,7 +48,7 @@ def intro():
     st.write("# Government contract data prediction during a pandemic")
     st.sidebar.success("Select an option above.")
 
-    st.markdown(
+    st.markdown('<div style="text-align: center;">
         """
         WELCOME!
 
@@ -66,7 +66,7 @@ def intro():
         
         👈 Select an option from the dropdown on the left to see the business type that would win a contract
     """
-    )
+   </div>', unsafe_allow_html=True )
                                                               # """THIS ONE WORKS"""
 def business_type_predict():
     import pandas as pd
