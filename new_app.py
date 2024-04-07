@@ -38,7 +38,7 @@ with open("GovernmentContract.png", "rb") as f:
     st.markdown(
         f"""
         <div style>
-            <img src="data:image/png;base64,{data}" width="200" height="100">
+            <img src="data:image/png;base64,{data}" width="1200" height="1100">
         </div>
         """,
         unsafe_allow_html=True,
