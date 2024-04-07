@@ -279,7 +279,7 @@ def business_type_predict():
                     select_vendorbusinesstypeManufactofgoods,select_contractvalue,select_contractduration,select_countryofprodservorigin)
 
         st.success('The business that will win the contract is{}'.format(output))
-        st.table(output)
+        #st.table(output)
         st.dataframe(output.style.highlight_max(axis=1))
 
     if __name__ == "__main__":
