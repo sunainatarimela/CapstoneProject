@@ -56,14 +56,14 @@ def intro():
         vendors to complete the task at hand. There are some contracts 
         that are released everyday depending on the need of the related 
         government agency.
-        ---------------------------------------------------------------
+        
         One of the websites to get updated government contracts related 
         information is [sam.gov](https://sam.gov/content/home)
-        ---------------------------------------------------------------
+        
         If you are a vendor for government contracts and want to see 
         details about the contract assignments, then you are at the 
         right place!
-        ---------------------------------------------------------------
+        
         👈 Select an option from the dropdown on the left to see the business type that would win a contract
     """
     )
