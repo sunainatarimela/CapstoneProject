@@ -22,7 +22,7 @@ def set_background(png_file):
     page_bg_img = '''
     <style>
     .stApp {
-    background-image: linear-gradient(rgba(255,255,255,0.75), rgba(255,255,255,0.75)), url("data:image/png;base64,%s"), use_column_width=True;
+    background-image: linear-gradient(rgba(255,255,255,0.75), rgba(255,255,255,0.75)), url("data:image/png;base64,%s");
     background-size:cover;
     background-repeat:no-repeat;
     }
