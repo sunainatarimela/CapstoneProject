@@ -150,6 +150,12 @@ def business_type_predict():
         prob_df=pd.DataFrame(pred_probabilities, columns=label_encoders['Business Type'].classes_)
         return prob_df
 
+
+    tableau_dashboard_url = "https://public.tableau.com/views/IDS_560_dashboard/Dashboard1?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link"
+
+    # Create a clickable link that opens in a new tab
+    st.markdown(f'[Open Tableau Dashboard]({tableau_dashboard_url}){:target="_blank"}', unsafe_allow_html=True)
+
     st.write("# Predicting the Business Type that will win the contract")
     st.markdown(
         """
