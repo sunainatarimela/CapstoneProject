@@ -353,7 +353,7 @@ def contract_value_predict():
 
         """
         )
-    st.button ("Predict the Contract Value"):
+    st.button ("Predict the Contract Value")
 
 
 def contract_duration_predict():
