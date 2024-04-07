@@ -73,23 +73,6 @@ def intro():
     """
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     ---------------------------------------------------------------------------------------------------
     Aarsh Vyas, Janhavi Gulabani, Nabila Fakhruddin, Sunaina Tarimela, Vojtech Mensik
 
