@@ -155,21 +155,44 @@ def business_type_predict():
           loaded_model = pickle.load(file)
 
         prediction = loaded_model.predict(X_test.reshape(1, -1) )
-
+       
+        # Load the serialized object from the pickle file
+        with open('/content/drive/MyDrive/Colab Notebooks/label_encoder.pkl', 'rb') as file:
+          label_encoders = pickle.load(file)
+       
         #Predicted Business Type
-        #BusinessType = label_encoders['Business Type'].inverse_transform([prediction])
-        #return BusinessType
+        BusinessType = label_encoders['Business Type'].inverse_transform([prediction])
+        # return BusinessType
+        list_result = []
+        list_result.append(BusinessType)
 
         #Predict Probabilities
         pred_probabilities = loaded_model.predict_proba(X_test.reshape(1, -1))
 
-
         # Load the serialized object from the pickle file
-        with open('label_encoder.pkl', 'rb') as file:
+        with open('/content/drive/MyDrive/Colab Notebooks/label_encoder.pkl', 'rb') as file:
           label_encoders = pickle.load(file)
 
         prob_df=pd.DataFrame(pred_probabilities, columns=label_encoders['Business Type'].classes_)
-        return prob_df
+        # return prob_df
+        list_result.append(prob_df)
+
+        return list_result
+
+        # #Predicted Business Type
+        # #BusinessType = label_encoders['Business Type'].inverse_transform([prediction])
+        # #return BusinessType
+
+        # #Predict Probabilities
+        # pred_probabilities = loaded_model.predict_proba(X_test.reshape(1, -1))
+
+
+        # # Load the serialized object from the pickle file
+        # with open('label_encoder.pkl', 'rb') as file:
+        #   label_encoders = pickle.load(file)
+
+        # prob_df=pd.DataFrame(pred_probabilities, columns=label_encoders['Business Type'].classes_)
+        # return prob_df
 
 
     #tableau_dashboard_url = "https://public.tableau.com/views/IDS_560_dashboard/Dashboard1?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link"
@@ -272,15 +295,20 @@ def business_type_predict():
     #components.html(html_temp)
 
     if st.button ("Predict the business type to win the contract"):
-        output = run_pred_model_business_type(select_agencyid,select_contracttype,select_naicscode,select_pricipalplaceofperformancestate,
+        list_name = run_pred_model_business_type(select_agencyid,select_contracttype,select_naicscode,select_pricipalplaceofperformancestate,
                     select_pricipalplaceofperformancecountry,select_entity,select_performancebasedservice,select_extentcompeted,select_solicitationprocedures,
                     select_localareasetaside,select_vendoraddresstatename,select_vendoraddresscountryname,select_laborstandards,
                     select_vendorbusinesstypeforProfit,select_vendorbusinesstypeallawards,select_vendorbusinesstypecorprateentity,
                     select_vendorbusinesstypeManufactofgoods,select_contractvalue,select_contractduration,select_countryofprodservorigin)
 
-        st.success('The business that will win the contract is{}'.format(output))
-        #st.table(output)
-        st.dataframe(output.style.highlight_max(axis=1))
+      output_1 = list_name[0]
+      #output_1.tostring().encode("Is Vendor Business Type - ", "")
+      st.success('The business that will win the contract is{}'.format(output_1))
+
+      output_2 = pd.DataFrame(list_name[1])
+      #output_2 = list_name.index(1)
+      #st.table(output)
+      st.dataframe(output_2.style.highlight_max(axis=1))
 
     if __name__ == "__main__":
           main()
