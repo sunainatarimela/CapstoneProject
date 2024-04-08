@@ -301,14 +301,13 @@ def business_type_predict():
                     select_vendorbusinesstypeforProfit,select_vendorbusinesstypeallawards,select_vendorbusinesstypecorprateentity,
                     select_vendorbusinesstypeManufactofgoods,select_contractvalue,select_contractduration,select_countryofprodservorigin)
 
-          output_1 = list_name[0]
-          #output_1.tostring().encode("Is Vendor Business Type - ", "")
-          st.success('The business that will win the contract is{}'.format(output_1))
+         output_1 = list_name[0]
+         #output_1.tostring().encode("Is Vendor Business Type - ", "")
+         st.success('The business that will win the contract is{}'.format(output_1))
 
-          output_2 = pd.DataFrame(list_name[1])
-          #output_2 = list_name.index(1)
-          #st.table(output)
-          st.dataframe(output_2.style.highlight_max(axis=1))
+         output_2 = pd.DataFrame(list_name[1])
+         #st.table(output)
+         st.dataframe(output_2.style.highlight_max(axis=1))
 
     if __name__ == "__main__":
           main()
