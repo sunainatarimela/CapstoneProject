@@ -157,7 +157,7 @@ def business_type_predict():
         prediction = loaded_model.predict(X_test.reshape(1, -1) )
        
         # Load the serialized object from the pickle file
-        with open('/content/drive/MyDrive/Colab Notebooks/label_encoder.pkl', 'rb') as file:
+        with open('label_encoder.pkl', 'rb') as file:
           label_encoders = pickle.load(file)
        
         #Predicted Business Type
@@ -170,7 +170,7 @@ def business_type_predict():
         pred_probabilities = loaded_model.predict_proba(X_test.reshape(1, -1))
 
         # Load the serialized object from the pickle file
-        with open('/content/drive/MyDrive/Colab Notebooks/label_encoder.pkl', 'rb') as file:
+        with open('label_encoder.pkl', 'rb') as file:
           label_encoders = pickle.load(file)
 
         prob_df=pd.DataFrame(pred_probabilities, columns=label_encoders['Business Type'].classes_)
