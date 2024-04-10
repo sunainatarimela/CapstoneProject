@@ -340,7 +340,7 @@ def contract_value_predict():
         </style>
         ''' % bin_str
         st.markdown(page_bg_img, unsafe_allow_html=True)
-    set_background("GovernmentContract_Val.png") 
+    set_background("Images/GovernmentContract_Val.png") 
 
     
     select_value1 = st.sidebar.text_input(label="Contract Value Week1", placeholder="250000")
@@ -411,7 +411,7 @@ def contract_duration_predict():
         </style>
         ''' % bin_str
         st.markdown(page_bg_img, unsafe_allow_html=True)
-    set_background("GovernmentContract_Dur.png")   
+    set_background("Images/GovernmentContract_Dur.png")   
 
     def construct_sample_duration(input):
 
