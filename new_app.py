@@ -106,7 +106,7 @@ def business_type_predict():
         </style>
         ''' % bin_str
         st.markdown(page_bg_img, unsafe_allow_html=True)
-    set_background("GovernmentContract_BT.png")
+    set_background("Images/GovernmentContract_BT.png")
 
     def construct_sample(input):
 
