@@ -30,7 +30,7 @@ def set_background(png_file):
     </style>
     ''' % bin_str
     st.markdown(page_bg_img, unsafe_allow_html=True)
-set_background("GovernmentContract_4.png")
+set_background("Images/GovernmentContract_4.png")
 
 #with open("uicbusiness.png", "rb") as f:
  #   data = base64.b64encode(f.read()).decode("utf-8")
