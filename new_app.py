@@ -358,118 +358,118 @@ class LSTM(nn.Module):
 
 
 
-    def get_base64(bin_file):
-        with open(bin_file, 'rb') as f:
-            data = f.read()
-        return base64.b64encode(data).decode()
+def get_base64(bin_file):
+    with open(bin_file, 'rb') as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
 
-    def set_background(png_file):
-        bin_str = get_base64(png_file)
-        page_bg_img = '''
-        <style>
-        .stApp {
-        background-image: linear-gradient(rgba(255,255,255,0.75), rgba(255,255,255,0.75)), url("data:image/png;base64,%s");
-        background-size:cover;
-        background-repeat:no-repeat;
-        position: absolute;
-        }
-        </style>
-        ''' % bin_str
-        st.markdown(page_bg_img, unsafe_allow_html=True)
-    set_background("Images/GovernmentContract_Val.png") 
+def set_background(png_file):
+    bin_str = get_base64(png_file)
+    page_bg_img = '''
+    <style>
+    .stApp {
+    background-image: linear-gradient(rgba(255,255,255,0.75), rgba(255,255,255,0.75)), url("data:image/png;base64,%s");
+    background-size:cover;
+    background-repeat:no-repeat;
+    position: absolute;
+    }
+    </style>
+    ''' % bin_str
+    st.markdown(page_bg_img, unsafe_allow_html=True)
+set_background("Images/GovernmentContract_Val.png") 
 
-    st.markdown(
+st.markdown(
         """
         Before predicting the Contract Value, you can see the latest trands and visualizations by clicking on the link provided.
         """
         )
-    def open_page(url):
-        open_script= """
-        <script type="text/javascript">
-             window.open('%s', '_blank').focus();
-        </script>
-        """ % (url)
-        html(open_script)
+def open_page(url):
+    open_script= """
+    <script type="text/javascript">
+         window.open('%s', '_blank').focus();
+    </script>
+    """ % (url)
+    html(open_script)
 
-    st.button('Click to view tableau dashboard', on_click=open_page, args=('https://public.tableau.com/views/IDS_560_dashboard/Dashboard1?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link',))
+st.button('Click to view tableau dashboard', on_click=open_page, args=('https://public.tableau.com/views/IDS_560_dashboard/Dashboard1?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link',))
 
     
-    st.markdown(
+st.markdown(
         """
             Let's now predict the Contract Value.
             Please fill out the fields on the left and click on the button below to see the output.
 
         """
         )
-    st.button ("Predict the Contract Value")
+st.button ("Predict the Contract Value")
 
-    #Sliders instead of the boxes
-    x1 = st.sidebar.slider("Contract Value Week1", min_value=0e1, max_value=1e10, value=1e8, step=1e2)
-    x2 = st.sidebar.slider("Contract Value Week2", min_value=0e1, max_value=1e10, value=2e8, step=1e2)
-    x3 = st.sidebar.slider("Contract Value Week3", min_value=0e1, max_value=1e10, value=3e8, step=1e2)
-    x4 = st.sidebar.slider("Contract Value Week4", min_value=0e1, max_value=1e10, value=4e8, step=1e2)
-    x5 = st.sidebar.slider("Contract Value Week5", min_value=0e1, max_value=1e10, value=3e8, step=1e2)
+#Sliders instead of the boxes
+x1 = st.sidebar.slider("Contract Value Week1", min_value=0e1, max_value=1e10, value=1e8, step=1e2)
+x2 = st.sidebar.slider("Contract Value Week2", min_value=0e1, max_value=1e10, value=2e8, step=1e2)
+x3 = st.sidebar.slider("Contract Value Week3", min_value=0e1, max_value=1e10, value=3e8, step=1e2)
+x4 = st.sidebar.slider("Contract Value Week4", min_value=0e1, max_value=1e10, value=4e8, step=1e2)
+x5 = st.sidebar.slider("Contract Value Week5", min_value=0e1, max_value=1e10, value=3e8, step=1e2)
 
-    contract_type = st.sidebar.radio("Contract type",('Expensive','Medium','Cheap'))
+contract_type = st.sidebar.radio("Contract type",('Expensive','Medium','Cheap'))
 
-    #Choosing the option
-    print(contract_type)
+#Choosing the option
+print(contract_type)
+
+#Compiling into an INPUT
+# input = [select_value1,select_value2,select_value3,select_value4,select_value5]
+input = [x1,x2,x3,x4,x5]
     
-    #Compiling into an INPUT
-    # input = [select_value1,select_value2,select_value3,select_value4,select_value5]
-    input = [x1,x2,x3,x4,x5]
-    
-    #Reading the FILES
-    #MODELS - with torch
-    model_expensive = torch.load('Pickle/expensive_model.pth')
-    model_medium = torch.load('Pickle/medium_model.pth')
-    model_cheap = torch.load('Pickle/cheap_model.pth')
-    
-    #SCALERS
-    with open('Pickle/epensive_scaler.pkl', 'rb') as f:
-        expensive_scaler = pickle.load(f)
-    with open('Pickle/medium_scaler.pkl', 'rb') as f:
-        medium_scaler = pickle.load(f)
-    with open('Pickle/cheap_scaler.pkl', 'rb') as f:
-        cheap_scaler = pickle.load(f)
-    
-    
-    def perform_prediction(input, model, scaler):
-      '''Scale the input and compute the predicted value'''
-      input_np = np.array(input)
-      scaled_input = scaler.transform(input_np.reshape(-1,1))
-      input_tensor = torch.from_numpy(scaled_input).float()
-    
-      predicted_y = model(input_tensor.unsqueeze(0))
-      return scaled_input, predicted_y.detach().numpy() #X - input, y - prediction
-    
-    def print_the_prediction(input, model, scaler, title_name, y_xis_name):
-      '''Uses the perform_prediction and prints it out on a plot'''
-      scaled_input, predicted_y = perform_prediction(input, model, scaler)
-      input_org = scaler.inverse_transform(scaled_input.reshape(-1,1))
-      prediction_org = scaler.inverse_transform(predicted_y)
-    
-      # # PLotting in the scaled down version
-      # fig_value, ax = plt.subplots()
-      # ax.plot(scaled_input, label = 'Actual')
-      # ax.plot([4,5], np.concatenate((scaled_input[-1].reshape(-1,1),predicted_y)), label = 'Predictions')
-      # ax.set_title(title_name)
-      # ax.set_ylabel(y_xis_name)
-      # plt.legend()
-      # plt.show()
-      # st.pyplot(fig_value)
+#Reading the FILES
+#MODELS - with torch
+model_expensive = torch.load('Pickle/expensive_model.pth')
+model_medium = torch.load('Pickle/medium_model.pth')
+model_cheap = torch.load('Pickle/cheap_model.pth')
+
+#SCALERS
+with open('Pickle/epensive_scaler.pkl', 'rb') as f:
+    expensive_scaler = pickle.load(f)
+with open('Pickle/medium_scaler.pkl', 'rb') as f:
+    medium_scaler = pickle.load(f)
+with open('Pickle/cheap_scaler.pkl', 'rb') as f:
+    cheap_scaler = pickle.load(f)
     
     
-      # Origninal units
-      fig_org, ax = plt.subplots()
-      ax.plot(input_org, label = 'Actual')
-      ax.plot([4,5], np.concatenate((input_org[-1].reshape(-1,1),prediction_org)), label = 'Predictions')
-      ax.set_title(title_name)
-      ax.set_ylabel(y_xis_name)
-      ax.legend()
-      st.pyplot(fig_org)
-      # plt.show()
-      return prediction_org
+def perform_prediction(input, model, scaler):
+  '''Scale the input and compute the predicted value'''
+  input_np = np.array(input)
+  scaled_input = scaler.transform(input_np.reshape(-1,1))
+  input_tensor = torch.from_numpy(scaled_input).float()
+
+  predicted_y = model(input_tensor.unsqueeze(0))
+  return scaled_input, predicted_y.detach().numpy() #X - input, y - prediction
+    
+def print_the_prediction(input, model, scaler, title_name, y_xis_name):
+  '''Uses the perform_prediction and prints it out on a plot'''
+  scaled_input, predicted_y = perform_prediction(input, model, scaler)
+  input_org = scaler.inverse_transform(scaled_input.reshape(-1,1))
+  prediction_org = scaler.inverse_transform(predicted_y)
+
+  # # PLotting in the scaled down version
+  # fig_value, ax = plt.subplots()
+  # ax.plot(scaled_input, label = 'Actual')
+  # ax.plot([4,5], np.concatenate((scaled_input[-1].reshape(-1,1),predicted_y)), label = 'Predictions')
+  # ax.set_title(title_name)
+  # ax.set_ylabel(y_xis_name)
+  # plt.legend()
+  # plt.show()
+  # st.pyplot(fig_value)
+    
+    
+  # Origninal units
+  fig_org, ax = plt.subplots()
+  ax.plot(input_org, label = 'Actual')
+  ax.plot([4,5], np.concatenate((input_org[-1].reshape(-1,1),prediction_org)), label = 'Predictions')
+  ax.set_title(title_name)
+  ax.set_ylabel(y_xis_name)
+  ax.legend()
+  st.pyplot(fig_org)
+  # plt.show()
+  return prediction_org
 
 #Body of the page
 
@@ -516,8 +516,8 @@ if st.button ("Predict the Contract Value"):
     scaler = cheap_scaler
     title = 'Cheap'
 
-  prediction = print_the_prediction(input, model, scaler, f'{title} Value', 'Contract value')
-  st.write(f'The predicted value of the next week: {prediction}')
+prediction = print_the_prediction(input, model, scaler, f'{title} Value', 'Contract value')
+st.write(f'The predicted value of the next week: {prediction}')
 
 
 def contract_duration_predict():
