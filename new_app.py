@@ -421,16 +421,16 @@ class LSTM(nn.Module):
     
     #Reading the FILES
     #MODELS - with torch
-    model_expensive = torch.load('/content/drive/MyDrive/IDS 560/files_for_ui/expensive_model.pth')
-    model_medium = torch.load('/content/drive/MyDrive/IDS 560/files_for_ui/medium_model.pth')
-    model_cheap = torch.load('/content/drive/MyDrive/IDS 560/files_for_ui/cheap_model.pth')
+    model_expensive = torch.load('Pickle/expensive_model.pth')
+    model_medium = torch.load('Pickle/medium_model.pth')
+    model_cheap = torch.load('Pickle/cheap_model.pth')
     
     #SCALERS
-    with open('/content/drive/MyDrive/IDS 560/files_for_ui/epensive_scaler.pkl', 'rb') as f:
+    with open('Pickle/epensive_scaler.pkl', 'rb') as f:
         expensive_scaler = pickle.load(f)
-    with open('/content/drive/MyDrive/IDS 560/files_for_ui/medium_scaler.pkl', 'rb') as f:
+    with open('Pickle/medium_scaler.pkl', 'rb') as f:
         medium_scaler = pickle.load(f)
-    with open('/content/drive/MyDrive/IDS 560/files_for_ui/cheap_scaler.pkl', 'rb') as f:
+    with open('Pickle/cheap_scaler.pkl', 'rb') as f:
         cheap_scaler = pickle.load(f)
     
     
