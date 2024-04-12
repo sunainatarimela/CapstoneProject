@@ -1,0 +1,2 @@
+# The UI Link is below: Paste the below URL in the web browser
+https://capstoneprojectuic.streamlit.app/

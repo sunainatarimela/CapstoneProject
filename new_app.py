@@ -11,6 +11,7 @@ import base64
 apptitle = 'Gov Contracts'
 st.set_page_config(page_title=apptitle, page_icon=":book:")
 
+
 def get_base64(bin_file):
     with open(bin_file, 'rb') as f:
         data = f.read()
@@ -21,47 +22,61 @@ def set_background(png_file):
     page_bg_img = '''
     <style>
     .stApp {
-    background-image: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url("data:image/png;base64,%s");
-    background-size: cover;
+    background-image: linear-gradient(rgba(255,255,255,0.75), rgba(255,255,255,0.75)), url("data:image/png;base64,%s");
+    background-size:cover;
+    background-repeat:no-repeat;
+    position: absolute;
     }
     </style>
     ''' % bin_str
     st.markdown(page_bg_img, unsafe_allow_html=True)
-set_background("govcontracts.jpg")
+set_background("Images/GovernmentContract_4.png")
 
-with open("uicbusiness.png", "rb") as f:
-    data = base64.b64encode(f.read()).decode("utf-8")
-
-    st.markdown(
-        f"""
-        <div style="margin-top:-.5%;margin-left:-5%;">
-            <img src="data:image/png;base64,{data}" width="200" height="100">
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+#with open("Images/uicbusiness.png", "rb") as f:
+ #   data = base64.b64encode(f.read()).decode("utf-8")
+  #  st.markdown(
+   # f"""
+    #<div style="margin-top:-.5%;margin-left:-5%;">
+    #<img src="data:image/png;base64,{data}" width="200" height="100">
+    #</div>
+    #""",
+    #unsafe_allow_html=True,
+#)
 
 def intro():
     import streamlit as st
+    import streamlit.components.v1 as components
 
-    st.write("# Welcome Government contract data prediction during a pandemic")
+    import pandas as pd
+    import numpy as np
+    import pickle
+    import requests, os
+    import base64
+
+    st.write("# Government Contracts in the Pandemic Era: A Comprehensive Analysis")
     st.sidebar.success("Select an option above.")
 
     st.markdown(
         """
-        **Welcome!
+        WELCOME!
 
-        Government Contracts are contracts that are given to various vendors to complete the task at hand. There are some contracts that are
-        released everyday depending on the need of the related government agency.
-
-        One of the websites to get updated government contracts related information is [sam.gov](https://sam.gov/content/home)
-
-        If you are a vendor for government contracts and want to see details about the contract assignments, then you are at the right place!
-
-        **👈 Select an option from the dropdown on the left to see the business type that would win a contract **
+        Government Contracts are contracts that are given to various 
+        vendors to complete the task at hand. There are some contracts 
+        that are released everyday depending on the need of the related 
+        government agency.
+        
+        One of the websites to get updated government contracts related 
+        information is [sam.gov](https://sam.gov/content/home)
+       
+        If you are a vendor for government contracts and want to see 
+        details about the contract assignments, then you are at the 
+        right place!
+        
+        👈 Select an option from the dropdown on the left to see the predictions for Business Type, Contract Value and Contract duration
     """
     )
-                                                              # """THIS ONE WORKS"""
+
+                                                               
 def business_type_predict():
     import pandas as pd
     import numpy as np
@@ -70,12 +85,33 @@ def business_type_predict():
     import base64
     import streamlit as st
     import streamlit.components.v1 as components
+    from streamlit.components.v1 import html
 
+
+    def get_base64(bin_file):
+        with open(bin_file, 'rb') as f:
+            data = f.read()
+        return base64.b64encode(data).decode()
+
+    def set_background(png_file):
+        bin_str = get_base64(png_file)
+        page_bg_img = '''
+        <style>
+        .stApp {
+        background-image: linear-gradient(rgba(255,255,255,0.75), rgba(255,255,255,0.75)), url("data:image/png;base64,%s");
+        background-size:cover;
+        background-repeat:no-repeat;
+        position: absolute;
+        }
+        </style>
+        ''' % bin_str
+        st.markdown(page_bg_img, unsafe_allow_html=True)
+    set_background("Images/GovernmentContract_BT.png")
 
     def construct_sample(input):
 
         # Load the serialized object from the pickle file
-        with open('label_encoder.pkl', 'rb') as file:
+        with open('Pickle/label_encoder.pkl', 'rb') as file:
           label_encoders = pickle.load(file)
 
         X_test = np.zeros(20)
@@ -115,38 +151,81 @@ def business_type_predict():
         X_test = construct_sample(input)
 
         # Load the serialized object from the pickle file
-        with open('clf.pkl', 'rb') as file:
+        with open('Pickle/clf.pkl', 'rb') as file:
           loaded_model = pickle.load(file)
 
         prediction = loaded_model.predict(X_test.reshape(1, -1) )
-
+       
+        # Load the serialized object from the pickle file
+        with open('Pickle/label_encoder.pkl', 'rb') as file:
+          label_encoders = pickle.load(file)
+       
         #Predicted Business Type
-        #BusinessType = label_encoders['Business Type'].inverse_transform([prediction])
-        #return BusinessType
+        BusinessType = label_encoders['Business Type'].inverse_transform([prediction])
+        # return BusinessType
+        list_result = []
+        list_result.append(BusinessType)
 
         #Predict Probabilities
         pred_probabilities = loaded_model.predict_proba(X_test.reshape(1, -1))
 
-
         # Load the serialized object from the pickle file
-        with open('label_encoder.pkl', 'rb') as file:
+        with open('Pickle/label_encoder.pkl', 'rb') as file:
           label_encoders = pickle.load(file)
 
         prob_df=pd.DataFrame(pred_probabilities, columns=label_encoders['Business Type'].classes_)
-        return prob_df
+        # return prob_df
+        list_result.append(prob_df)
+
+        return list_result
+
+        # #Predicted Business Type
+        # #BusinessType = label_encoders['Business Type'].inverse_transform([prediction])
+        # #return BusinessType
+
+        # #Predict Probabilities
+        # pred_probabilities = loaded_model.predict_proba(X_test.reshape(1, -1))
+
+
+        # # Load the serialized object from the pickle file
+        # with open('Pickle/label_encoder.pkl', 'rb') as file:
+        #   label_encoders = pickle.load(file)
+
+        # prob_df=pd.DataFrame(pred_probabilities, columns=label_encoders['Business Type'].classes_)
+        # return prob_df
+
+
+    #tableau_dashboard_url = "https://public.tableau.com/views/IDS_560_dashboard/Dashboard1?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link"
+
+    # Create a clickable link that opens in a new tab
+    #st.markdown(f'[Open Tableau Dashboard]({tableau_dashboard_url}){:target="_blank"}', unsafe_allow_html=True)
 
     st.write("# Predicting the Business Type that will win the contract")
     st.markdown(
         """
-        ** You are now ready to predict which Business Type will win the contract.**
+        Before predicting the Business Type to win the contract, you can see the latest trands and visualizations by clicking on the link provided.
+        """
+        )
+    def open_page(url):
+        open_script= """
+        <script type="text/javascript">
+             window.open('%s', '_blank').focus();
+        </script>
+        """ % (url)
+        html(open_script)
+
+    st.button('Click to view tableau dashboard', on_click=open_page, args=('https://public.tableau.com/views/IDS_560_dashboard/Dashboard1?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link',))
+
+    
+    st.markdown(
+        """
+            Let's now predict which Business Type will win the contract.
             Please fill out the fields on the left and click on the button below to see the output.
-            You can also see the latest trands by clicking on the tableau dashboard link provided.
+            You will also see the probability of other Business Types winning a contract with the inputs provided.
 
         """
         )
-
-
-
+    
     #-- Set business type
 
     select_agencyid = st.sidebar.text_input(label="Contracting Agency ID", placeholder="1406")
@@ -156,10 +235,13 @@ def business_type_predict():
 
     select_naicscode = st.sidebar.text_input(label="NAICS Code", placeholder="622109")
 
-    select_pricipalplaceofperformancestate = st.sidebar.selectbox('Principal place of performance state code', ['VA','DC','CA','MD','IN','FL','NY','MO','CO','AK','LA','ID','WY','SD','MT','OR','WA','VT','PA','NM','NJ','IL','MN','TX','WV','AL','PR','KY','SC','NC','OK','GA','AR','MS','NE','MI','OH','IA','DE','NH','KS','WI','AZ','TN','CT','MA','HI','UT','RI','ME','ND','NV','AS','UGANDA','GU','FRANCE','VI','VIETNAM','CANADA','JAPAN','INDIA','CANADA','MEXICO'])
-
+    #select_pricipalplaceofperformancestate = st.sidebar.selectbox('Principal place of performance state code', ['VA','DC','CA','MD','IN','FL','NY','MO','CO','AK','LA','ID','WY','SD','MT','OR','WA','VT','PA','NM','NJ','IL','MN','TX','WV','AL','PR','KY','SC','NC','OK','GA','AR','MS','NE','MI','OH','IA','DE','NH','KS','WI','AZ','TN','CT','MA','HI','UT','RI','ME','ND','NV','AS','UGANDA','GU','FRANCE','VI','VIETNAM','CANADA','JAPAN','INDIA','CANADA','MEXICO'])
+    select_pricipalplaceofperformancestate = st.sidebar.selectbox('Principal place of performance state code', ['VA',	'DC',	'CA',	'MD',	'IN',	'FL',	'NY',	'MO',	'CO',	'AK',	'LA',	'ID',	'WY',	'SD',	'MT',	'OR',	'WA',	'VT',	'PA',	'NM',	'NJ',	'IL',	'MN',	'TX',	'WV',	'AL',	'PR',	'KY',	'SC',	'NC',	'OK',	'GA',	'AR',	'MS',	'NE',	'MI',	'OH',	'IA',	'DE',	'NH',	'KS',	'WI',	'AZ',	'TN',	'CT',	'MA',	'HI',	'UT',	'RI',	'ME',	'ND',	'NV',	'AS',	'UGANDA',	'GU',	'FRANCE',	'VI',	'VIETNAM',	'CANADA',	'JAPAN',	'UNITED KINGDOM',	'BAHRAIN',	'DJIBOUTI',	'SPAIN',	'ITALY',	'GREECE',	'SINGAPORE',	'SRI LANKA',	'BANGLADESH',	'SAMOA',	'PHILIPPINES',	'CAMBODIA',	'MICRONESIA, FEDERATED STATES OF',	'MONGOLIA',	'MALAYSIA',	'NEPAL',	'INDONESIA',	'LAOS',	'MP',	'AUSTRALIA',	'CROATIA',	'ROMANIA',	'CUBA',	'INDIA',	'IRAQ',	'ANGOLA',	'AFGHANISTAN',	'ALGERIA',	'AZERBAIJAN',	'ALBANIA',	'CENTRAL AFRICAN REPUBLIC',	'HONDURAS',	'ISRAEL',	'THAILAND',	'KOREA, SOUTH',	'PERU',	'URUGUAY',	'JAMAICA',	'SOUTH SUDAN',	'BAHAMAS, THE',	'ERITREA',	'NAMIBIA',	'MOROCCO',	'GERMANY',	'SOMALIA',	'JORDAN',	'CAMEROON',	'POLAND',	'MOZAMBIQUE',	'SAUDI ARABIA',	'DOMINICAN REPUBLIC',	'LEBANON',	'CONGO (KINSHASA)',	'TURKEY',	'NEW ZEALAND',	'CONGO (BRAZZAVILLE)',	'TURKMENISTAN',	'GUYANA',	'PARAGUAY',	'CYPRUS',	'SUDAN',	'GUATEMALA',	'KENYA',	'ARGENTINA',	'SOUTH AFRICA',	'BOTSWANA',	'BELGIUM',	'BURMA',	'BRAZIL',	'BURUNDI',	'COLOMBIA',	'CHILE',	'CHINA',	'COSTA RICA',	'IRELAND',	'ECUADOR',	'EL SALVADOR',	'ETHIOPIA',	'CZECHIA',	'FIJI',	'AUSTRIA',	'SLOVENIA',	'UZBEKISTAN',	'SLOVAKIA',	'NORTH MACEDONIA',	'BULGARIA',	'KOSOVO',	'RWANDA',	'GEORGIA',	'KAZAKHSTAN',	'UKRAINE',	'SENEGAL',	'ARMENIA',	'NIGERIA',	'BELARUS',	'ESWATINI',	'MOLDOVA',	'LATVIA',	'NIGER',	'MONTENEGRO',	'BURKINA FASO',	'LESOTHO',	'LITHUANIA',	'EGYPT',	'GABON',	'CHAD',	'PANAMA',	'UNITED ARAB EMIRATES',	'LIBERIA',	'MALAWI',	'MAURITIUS',	'MAURITANIA',	'OMAN',	'CURACAO',	'PAKISTAN',	'PAPUA NEW GUINEA',	'SERBIA',	'TUNISIA',	'TIMOR-LESTE',	'SWITZERLAND',	'ICELAND',	'BOSNIA AND HERZEGOVINA',	'KUWAIT',	'UNITED STATES MINOR OUTLYING ISLANDS',	'GUANTANAMO BAY NAVAL BASE',	'MEXICO',	'GREENLAND',	'PORTUGAL',	'QATAR',	'SYRIA',	'ZIMBABWE',	'TANZANIA',	'GHANA',	'GUINEA',	'MALI',	'DENMARK',	'SWEDEN',	'NETHERLANDS',	'BENIN',	'CABO VERDE',	'SOLOMON ISLANDS'])
+   
+    #select_pricipalplaceofperformancecountry = st.sidebar.selectbox('Principal place of performance country name',
+                                        #['UNITED STATES','UGANDA','FRANCE','VIETNAM','CANADA','JAPAN','UNITED KINGDOM','BAHRAIN','INDIA','CANADA','MEXICO'])
     select_pricipalplaceofperformancecountry = st.sidebar.selectbox('Principal place of performance country name',
-                                        ['UNITED STATES','UGANDA','FRANCE','VIETNAM','CANADA','JAPAN','UNITED KINGDOM','BAHRAIN','INDIA','CANADA','MEXICO'])
+                                        ['UNITED STATES',	'UGANDA',	'FRANCE',	'VIETNAM',	'CANADA',	'JAPAN',	'UNITED KINGDOM',	'BAHRAIN',	'DJIBOUTI',	'SPAIN',	'ITALY',	'GREECE',	'SINGAPORE',	'SRI LANKA',	'BANGLADESH',	'SAMOA',	'PHILIPPINES',	'CAMBODIA',	'MICRONESIA, FEDERATED STATES OF',	'MONGOLIA',	'MALAYSIA',	'NEPAL',	'INDONESIA',	'LAOS',	'AUSTRALIA',	'CROATIA',	'ROMANIA',	'CUBA',	'INDIA',	'IRAQ',	'ANGOLA',	'AFGHANISTAN',	'ALGERIA',	'AZERBAIJAN',	'ALBANIA',	'CENTRAL AFRICAN REPUBLIC',	'HONDURAS',	'ISRAEL',	'THAILAND',	'KOREA, SOUTH',	'PERU',	'URUGUAY',	'JAMAICA',	'SOUTH SUDAN',	'BAHAMAS, THE',	'ERITREA',	'NAMIBIA',	'MOROCCO',	'GERMANY',	'SOMALIA',	'JORDAN',	'CAMEROON',	'POLAND',	'MOZAMBIQUE',	'SAUDI ARABIA',	'DOMINICAN REPUBLIC',	'LEBANON',	'CONGO (KINSHASA)',	'TURKEY',	'NEW ZEALAND',	'CONGO (BRAZZAVILLE)',	'TURKMENISTAN',	'GUYANA',	'PARAGUAY',	'CYPRUS',	'SUDAN',	'GUATEMALA',	'KENYA',	'ARGENTINA',	'SOUTH AFRICA',	'BOTSWANA',	'BELGIUM',	'BURMA',	'BRAZIL',	'BURUNDI',	'COLOMBIA',	'CHILE',	'CHINA',	'COSTA RICA',	'IRELAND',	'ECUADOR',	'EL SALVADOR',	'ETHIOPIA',	'CZECHIA',	'FIJI',	'AUSTRIA',	'SLOVENIA',	'UZBEKISTAN',	'SLOVAKIA',	'NORTH MACEDONIA',	'BULGARIA',	'KOSOVO',	'RWANDA',	'GEORGIA',	'KAZAKHSTAN',	'UKRAINE',	'SENEGAL',	'ARMENIA',	'NIGERIA',	'BELARUS',	'ESWATINI',	'MOLDOVA',	'LATVIA',	'NIGER',	'MONTENEGRO',	'BURKINA FASO',	'LESOTHO',	'LITHUANIA',	'EGYPT',	'GABON',	'CHAD',	'PANAMA',	'UNITED ARAB EMIRATES',	'LIBERIA',	'MALAWI',	'MAURITIUS',	'MAURITANIA',	'OMAN',	'CURACAO',	'PAKISTAN',	'PAPUA NEW GUINEA',	'SERBIA',	'TUNISIA',	'TIMOR-LESTE',	'SWITZERLAND',	'ICELAND',	'BOSNIA AND HERZEGOVINA',	'KUWAIT',	'UNITED STATES MINOR OUTLYING ISLANDS',	'GUANTANAMO BAY NAVAL BASE',	'MEXICO',	'GREENLAND',	'PORTUGAL',	'QATAR',	'SYRIA',	'ZIMBABWE',	'TANZANIA',	'GHANA',	'GUINEA',	'MALI',	'DENMARK',	'SWEDEN',	'NETHERLANDS',	'BENIN',	'CABO VERDE',	'SOLOMON ISLANDS'])
 
     select_entity = st.sidebar.selectbox("Domestic or Foreign Entity",['U.S. OWNED BUSINESS','OTHER U.S. ENTITY (E.G. GOVERNMENT)','FOREIGN-OWNED BUSINESS INCORPORATED IN THE U.S.','FOREIGN-OWNED BUSINESS NOT INCORPORATED IN THE U.S.','OTHER FOREIGN ENTITY (E.G. FOREIGN GOVERNMENT)'])
 
@@ -174,10 +256,10 @@ def business_type_predict():
     select_localareasetaside = st.sidebar.radio("Local Area Set Aside",('YES','NO'))
 
     select_vendoraddresstatename = st.sidebar.selectbox('Vendor Address State',
-                                        ['ILLINOIS','ARIZONA','TEXAS','CALIFORNIA','NEW YORK','NEW JERSEY','NORTH CAROLINA'])
+                                        ['VIRGINIA',	'MARYLAND',	'FLORIDA',	'RHODE ISLAND',	'CALIFORNIA',	'INDIANA',	'NEW YORK',	'NORTH CAROLINA',	'MINNESOTA',	'MISSOURI',	'ALASKA',	'TEXAS',	'PENNSYLVANIA',	'MISSISSIPPI',	'IDAHO',	'WYOMING',	'OREGON',	'DISTRICT OF COLUMBIA',	'MONTANA',	'WASHINGTON',	'MASSACHUSETTS',	'NEW JERSEY',	'ILLINOIS',	'WEST VIRGINIA',	'COLORADO',	'OHIO',	'ALABAMA',	'KENTUCKY',	'GEORGIA',	'OKLAHOMA',	'LOUISIANA',	'KANSAS',	'NEBRASKA',	'SOUTH CAROLINA',	'NEVADA',	'NEW MEXICO',	'WISCONSIN',	'SOUTH DAKOTA',	'ARKANSAS',	'ARIZONA',	'MICHIGAN',	'PUERTO RICO',	'CONNECTICUT',	'HAWAII',	'TENNESSEE',	'UTAH',	'VERMONT',	'IOWA',	'NEW HAMPSHIRE',	'MAINE',	'DELAWARE',	'NORTH DAKOTA',	'VIRGIN ISLANDS OF THE U.S.',	'GUAM',	'AMERICAN SAMOA',	'NORTHERN MARIANA ISLANDS',	'CANADA',	'FRANCE',	'UNITED KINGDOM',	'JAPAN',	'ROMANIA',	'SPAIN',	'ITALY',	'SINGAPORE',	'SRI LANKA',	'NEW ZEALAND',	'IRAQ',	'MALAYSIA',	'NEPAL',	'INDONESIA',	'PHILIPPINES',	'VIETNAM',	'CROATIA',	'GREECE',	'UNITED ARAB EMIRATES',	'INDIA',	'BAHRAIN',	'BELGIUM',	'COLOMBIA',	'CAMBODIA',	'CONGO (KINSHASA)',	'COSTA RICA',	'FIJI',	'SLOVENIA',	'KENYA',	'UZBEKISTAN',	'MOROCCO',	'SLOVAKIA',	'BULGARIA',	'ALBANIA',	'KAZAKHSTAN',	'AZERBAIJAN',	'UKRAINE',	'SENEGAL',	'SOUTH AFRICA',	'THAILAND',	'NIGERIA',	'ARMENIA',	'LITHUANIA',	'BURUNDI',	'UGANDA',	'MOLDOVA',	'ALGERIA',	'ESTONIA',	'LATVIA',	'MOZAMBIQUE',	'RWANDA',	'CYPRUS',	'GABON',	'MONTENEGRO',	'NETHERLANDS',	'KOREA, SOUTH',	'NIGER',	'PANAMA',	'SERBIA',	'SOUTH SUDAN',	'SWITZERLAND',	'GERMANY',	'BOTSWANA',	'ICELAND',	'SAUDI ARABIA',	'POLAND',	'NORTH MACEDONIA',	'KOSOVO',	'BOSNIA AND HERZEGOVINA',	'PERU',	'KUWAIT',	'PORTUGAL',	'DENMARK',	'QATAR',	'GHANA',	'ISRAEL',	'MALI',	'SWEDEN',	'AUSTRALIA',	'AUSTRIA',	'JORDAN'])
 
     select_vendoraddresscountryname = st.sidebar.selectbox('Vendor address country name',
-                                        ['UNITED STATES','INDIA','CANADA','MEXICO'])
+                                        ['UNITED STATES',	'CANADA',	'FRANCE',	'UNITED KINGDOM',	'JAPAN',	'ROMANIA',	'GUAM',	'SPAIN',	'ITALY',	'SINGAPORE',	'SRI LANKA',	'NEW ZEALAND',	'IRAQ',	'MALAYSIA',	'NEPAL',	'INDONESIA',	'PHILIPPINES',	'VIETNAM',	'CROATIA',	'GREECE',	'UNITED ARAB EMIRATES',	'INDIA',	'BAHRAIN',	'BELGIUM',	'COLOMBIA',	'CAMBODIA',	'CONGO (KINSHASA)',	'COSTA RICA',	'FIJI',	'SLOVENIA',	'KENYA',	'UZBEKISTAN',	'MOROCCO',	'SLOVAKIA',	'BULGARIA',	'ALBANIA',	'GEORGIA',	'KAZAKHSTAN',	'AZERBAIJAN',	'UKRAINE',	'SENEGAL',	'SOUTH AFRICA',	'THAILAND',	'NIGERIA',	'ARMENIA',	'LITHUANIA',	'BURUNDI',	'UGANDA',	'MOLDOVA',	'ALGERIA',	'ESTONIA',	'LATVIA',	'MOZAMBIQUE',	'RWANDA',	'CYPRUS',	'GABON',	'MONTENEGRO',	'NETHERLANDS',	'KOREA, SOUTH',	'NIGER',	'PANAMA',	'SERBIA',	'SOUTH SUDAN',	'SWITZERLAND',	'GERMANY',	'BOTSWANA',	'ICELAND',	'SAUDI ARABIA',	'POLAND',	'NORTH MACEDONIA',	'KOSOVO',	'BOSNIA AND HERZEGOVINA',	'PERU',	'KUWAIT',	'PORTUGAL',	'DENMARK',	'QATAR',	'GHANA',	'ISRAEL',	'MALI',	'SWEDEN',	'AUSTRALIA',	'AUSTRIA',	'JORDAN'])
 
     select_laborstandards = st.sidebar.radio("Labor Standards",('YES','NO','NOT APPLICABLE'))
 
@@ -197,34 +279,37 @@ def business_type_predict():
                                         ['UNITED STATES','INDIA','CANADA','MEXICO'])
 
 
-    html_temp = "<div class='tableauPlaceholder' id='viz1711381846728' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ID&#47;IDS_560_dashboard&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='IDS_560_dashboard&#47;Dashboard1' /><param name='tabs' value='yes' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ID&#47;IDS_560_dashboard&#47;Dashboard1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1711381846728');                    var vizElement = divElement.getElementsByTagName('object')[0];                 if ( divElement.offsetWidth > 800 ) { vizElement.style.width='2850px';vizElement.style.height='1727px';}else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='2850px';vizElement.style.height='1727px';} else { vizElement.style.width='100%';vizElement.style.height='2077px';}               var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>"
-    components.html(html_temp)
+    #html_temp = "<div class='tableauPlaceholder' id='viz1711381846728' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ID&#47;IDS_560_dashboard&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='IDS_560_dashboard&#47;Dashboard1' /><param name='tabs' value='yes' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ID&#47;IDS_560_dashboard&#47;Dashboard1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1711381846728');                    var vizElement = divElement.getElementsByTagName('object')[0];                 if ( divElement.offsetWidth > 800 ) { vizElement.style.width='2850px';vizElement.style.height='1727px';}else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='2850px';vizElement.style.height='1727px';} else { vizElement.style.width='100%';vizElement.style.height='2077px';}               var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>"
+    #components.html(html_temp)
 
     def main():
       import pickle
       # Load the serialized object from the pickle file
-      with open('clf.pkl', 'rb') as file:
+      with open('Pickle/clf.pkl', 'rb') as file:
         loaded_model = pickle.load(file)
 
       # # Load the serialized object from the pickle file
-      with open('label_encoder.pkl', 'rb') as file:
+      with open('Pickle/label_encoder.pkl', 'rb') as file:
         label_encoders = pickle.load(file)
 
 
 
-    html_temp = "<div class='tableauPlaceholder' id='viz1710733360364' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ID&#47;IDS_560_dashboard&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='IDS_560_dashboard&#47;Dashboard1' /><param name='tabs' value='yes' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ID&#47;IDS_560_dashboard&#47;Dashboard1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1710733360364');                    var vizElement = divElement.getElementsByTagName('object')[0];                    if ( divElement.offsetWidth > 800 ) { vizElement.style.minWidth='1620px';vizElement.style.maxWidth='1720px';vizElement.style.width='100%';vizElement.style.minHeight='818px';vizElement.style.maxHeight='910px';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.minWidth='1620px';vizElement.style.maxWidth='1720px';vizElement.style.width='100%';vizElement.style.minHeight='818px';vizElement.style.maxHeight='910px';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else { vizElement.style.width='100%';vizElement.style.height='1250px';}                     var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>"
-    components.html(html_temp)
+    #html_temp = "<div class='tableauPlaceholder' id='viz1710733360364' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ID&#47;IDS_560_dashboard&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='IDS_560_dashboard&#47;Dashboard1' /><param name='tabs' value='yes' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ID&#47;IDS_560_dashboard&#47;Dashboard1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1710733360364');                    var vizElement = divElement.getElementsByTagName('object')[0];                    if ( divElement.offsetWidth > 800 ) { vizElement.style.minWidth='1620px';vizElement.style.maxWidth='1720px';vizElement.style.width='100%';vizElement.style.minHeight='818px';vizElement.style.maxHeight='910px';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.minWidth='1620px';vizElement.style.maxWidth='1720px';vizElement.style.width='100%';vizElement.style.minHeight='818px';vizElement.style.maxHeight='910px';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else { vizElement.style.width='100%';vizElement.style.height='1250px';}                     var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>"
+    #components.html(html_temp)
 
     if st.button ("Predict the business type to win the contract"):
-        output = run_pred_model_business_type(select_agencyid,select_contracttype,select_naicscode,select_pricipalplaceofperformancestate,
+        list_name = run_pred_model_business_type(select_agencyid,select_contracttype,select_naicscode,select_pricipalplaceofperformancestate,
                     select_pricipalplaceofperformancecountry,select_entity,select_performancebasedservice,select_extentcompeted,select_solicitationprocedures,
                     select_localareasetaside,select_vendoraddresstatename,select_vendoraddresscountryname,select_laborstandards,
                     select_vendorbusinesstypeforProfit,select_vendorbusinesstypeallawards,select_vendorbusinesstypecorprateentity,
                     select_vendorbusinesstypeManufactofgoods,select_contractvalue,select_contractduration,select_countryofprodservorigin)
+        output_1 = list_name[0]
+        #output_1.tostring().encode("Is Vendor Business Type - ", "")
+        st.success('The business that will win the contract is{}'.format(output_1))
 
-        st.success('The business that will win the contract is{}'.format(output))
-        st.table(output)
-    #st.dataframe(output.style.highlight_max(axis=1))
+        output_2 = pd.DataFrame(list_name[1])
+        #st.table(output)
+        st.dataframe(output_2.style.highlight_max(axis=1))
 
     if __name__ == "__main__":
           main()
@@ -237,69 +322,67 @@ def contract_value_predict():
     import base64
     import streamlit as st
     import streamlit.components.v1 as components
+    from streamlit.components.v1 import html
 
 
+    def get_base64(bin_file):
+        with open(bin_file, 'rb') as f:
+            data = f.read()
+        return base64.b64encode(data).decode()
 
-    def run_pred_model_business_type (select_businesstype: str,select_agencyid : str,select_contracttype : str,select_naicscode : str,select_pricipalplaceofperformancestate : str,
-                    select_pricipalplaceofperformancecountry: str,select_entity: str,select_performancebasedservice: str,select_extentcompeted: str,select_solicitationprocedures: str,
-                    select_localareasetaside: str,select_vendoraddresstatename: str,select_vendoraddresscountryname: str,select_laborstandards: str,
-                    select_vendorbusinesstypeforProfit: str,select_vendorbusinesstypeallawards: str,select_vendorbusinesstypecorprateentity: str,
-                    select_vendorbusinesstypeManufactofgoods: str,select_contractvalue: str,select_contractduration: str):
-        """Generate prediction."""
+    def set_background(png_file):
+        bin_str = get_base64(png_file)
+        page_bg_img = '''
+        <style>
+        .stApp {
+        background-image: linear-gradient(rgba(255,255,255,0.75), rgba(255,255,255,0.75)), url("data:image/png;base64,%s");
+        background-size:cover;
+        background-repeat:no-repeat;
+        position: absolute;
+        }
+        </style>
+        ''' % bin_str
+        st.markdown(page_bg_img, unsafe_allow_html=True)
+    set_background("Images/GovernmentContract_Val.png") 
 
+    
+    select_value1 = st.sidebar.text_input(label="Contract Value Week1", placeholder="250000")
 
+    select_value2 = st.sidebar.text_input(label="Contract Value Week2", placeholder="250000")
 
-    #-- Set business type
+    select_value3 = st.sidebar.text_input(label="Contract Value Week3", placeholder="250000")
+    
+    select_value4 = st.sidebar.text_input(label="Contract Value Week4", placeholder="250000")
 
-    select_businesstype = st.sidebar.selectbox('What business type do you want to see?',
-                                        ['Women Owned','Veteran Owned', 'Small Business'])
+    select_value5 = st.sidebar.text_input(label="Contract Value Week5", placeholder="250000")
 
-    select_agencyid = st.sidebar.text_input(label="Contracting Agency ID", placeholder="1406")
+    select_contracttype = st.sidebar.radio("Contract type",('Expensive','Medium','Cheap'))
 
-    select_contracttype = st.sidebar.selectbox('Contract Type',
-                                        ['FIRM FIXED PRICE','TIME AND MATERIALS','LABOR HOURS','FIXED PRICE AWARD FEE','FIXED PRICE WITH ECONOMIC PRICE ADJUSTMENT','COST NO FEE','COST PLUS FIXED FEE','COST PLUS AWARD FEE','COST PLUS INCENTIVE FEE','FIXED PRICE INCENTIVE','FIXED PRICE LEVEL OF EFFORT','COST SHARING','FIXED PRICE REDETERMINATION'])
+    st.write("# Predicting the Contract Value")
+    st.markdown(
+        """
+        Before predicting the Contract Value, you can see the latest trands and visualizations by clicking on the link provided.
+        """
+        )
+    def open_page(url):
+        open_script= """
+        <script type="text/javascript">
+             window.open('%s', '_blank').focus();
+        </script>
+        """ % (url)
+        html(open_script)
 
-    select_naicscode = st.sidebar.text_input(label="NAICS Code", placeholder="622109")
+    st.button('Click to view tableau dashboard', on_click=open_page, args=('https://public.tableau.com/views/IDS_560_dashboard/Dashboard1?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link',))
 
-    select_pricipalplaceofperformancestate = st.sidebar.selectbox('Principal place of performance state code', ['VA','DC','CA','MD','IN','FL','NY','MO','CO','AK','LA','ID','WY','SD','MT','OR','WA','VT','PA','NM','NJ','IL','MN','TX','WV','AL','PR','KY','SC','NC','OK','GA','AR','MS','NE','MI','OH','IA','DE','NH','KS','WI','AZ','TN','CT','MA','HI','UT','RI','ME','ND','NV','AS','UGANDA','GU','FRANCE','VI','VIETNAM','CANADA','JAPAN','INDIA','CANADA','MEXICO'])
+    
+    st.markdown(
+        """
+            Let's now predict the Contract Value.
+            Please fill out the fields on the left and click on the button below to see the output.
 
-    select_pricipalplaceofperformancecountry = st.sidebar.selectbox('Principal place of performance country name',
-                                        ['UNITED STATES','UGANDA','FRANCE','VIETNAM','CANADA','JAPAN','UNITED KINGDOM','BAHRAIN','INDIA','CANADA','MEXICO'])
-
-    select_entity = st.sidebar.selectbox("Domestic or Foreign Entity",['U.S. OWNED BUSINESS','OTHER U.S. ENTITY (E.G. GOVERNMENT)','FOREIGN-OWNED BUSINESS INCORPORATED IN THE U.S.','FOREIGN-OWNED BUSINESS NOT INCORPORATED IN THE U.S.','OTHER FOREIGN ENTITY (E.G. FOREIGN GOVERNMENT)'])
-
-    select_performancebasedservice = st.sidebar.radio("Performance Based Service Acquisition",('NO - SERVICE WHERE PBA IS NOT USED.','YES - SERVICE WHERE PBA IS USED.','NOT APPLICABLE'))
-
-    select_extentcompeted = st.sidebar.selectbox('Extent Competed',
-                                        ['FULL AND OPEN COMPETITION','NOT COMPETED UNDER SAP','FULL AND OPEN COMPETITION AFTER EXCLUSION OF SOURCES','NOT COMPETED','COMPETED UNDER SAP','NOT AVAILABLE FOR COMPETITION'])
-
-    select_solicitationprocedures = st.sidebar.selectbox('Solicitation Procedures',
-                                        ['SUBJECT TO MULTIPLE AWARD FAIR OPPORTUNITY','SIMPLIFIED ACQUISITION','NEGOTIATED PROPOSAL/QUOTE','ONLY ONE SOURCE','ALTERNATIVE SOURCES','SEALED BID','ARCHITECT-ENGINEER FAR 6.102','BASIC RESEARCH','TWO STEP'])
-
-    select_localareasetaside = st.sidebar.radio("Local Area Set Aside",('YES','NO'))
-
-    select_vendoraddresstatename = st.sidebar.selectbox('Vendor Address State',
-                                        ['ILLINOIS','ARIZONA','TEXAS','CALIFORNIA','NEW YORK','NEW JERSEY','NORTH CAROLINA'])
-
-    select_vendoraddresscountryname = st.sidebar.selectbox('Vendor address country name',
-                                        ['UNITED STATES','INDIA','CANADA','MEXICO'])
-
-    select_laborstandards = st.sidebar.radio("Labor Standards",('YES','NO','NOT APPLICABLE'))
-
-    select_vendorbusinesstypeforProfit = st.sidebar.radio("Is Vendor Business type - For Profit Organisation",('YES','NO'))
-
-    select_vendorbusinesstypeallawards = st.sidebar.radio("Is Vendor Business type - All Awards ",('YES','NO'))
-
-    select_vendorbusinesstypecorprateentity = st.sidebar.radio("Is Vendor Business type - Corporate Entity, Not tax Exempt",('YES','NO'))
-
-    select_vendorbusinesstypeManufactofgoods = st.sidebar.radio("Is Vendor Business type - Manufacturer of Goods",('YES','NO'))
-
-    select_contractduration = st.sidebar.text_input(label="Contract Duration(in days)", placeholder="365")
-
-    select_countryofprodservorigin = st.sidebar.selectbox('Country of Product or Service Origin',
-                                        ['UNITED STATES','INDIA','CANADA','MEXICO'])
-    html_temp = "<div class='tableauPlaceholder' id='viz1711381846728' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ID&#47;IDS_560_dashboard&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='IDS_560_dashboard&#47;Dashboard1' /><param name='tabs' value='yes' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ID&#47;IDS_560_dashboard&#47;Dashboard1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1711381846728');                    var vizElement = divElement.getElementsByTagName('object')[0];                 if ( divElement.offsetWidth > 800 ) { vizElement.style.width='2850px';vizElement.style.height='1727px';}else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='2850px';vizElement.style.height='1727px';} else { vizElement.style.width='100%';vizElement.style.height='2077px';}               var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>"
-    components.html(html_temp)
+        """
+        )
+    st.button ("Predict the Contract Value")
 
 
 def contract_duration_predict():
@@ -310,13 +393,33 @@ def contract_duration_predict():
     import base64
     import streamlit as st
     import streamlit.components.v1 as components
+    from streamlit.components.v1 import html
 
-        
+
+    def get_base64(bin_file):
+        with open(bin_file, 'rb') as f:
+            data = f.read()
+        return base64.b64encode(data).decode()
+
+    def set_background(png_file):
+        bin_str = get_base64(png_file)
+        page_bg_img = '''
+        <style>
+        .stApp {
+        background-image: linear-gradient(rgba(255,255,255,0.75), rgba(255,255,255,0.75)), url("data:image/png;base64,%s");
+        background-size:cover;
+        background-repeat:no-repeat;
+        position: absolute;
+        }
+        </style>
+        ''' % bin_str
+        st.markdown(page_bg_img, unsafe_allow_html=True)
+    set_background("Images/GovernmentContract_Dur.png")   
 
     def construct_sample_duration(input):
 
         # Load the serialized object from the pickle file
-        with open('label_encoder.pkl', 'rb') as file:
+        with open('Pickle/label_encoder.pkl', 'rb') as file:
           label_encoders = pickle.load(file)
 
         X_test = np.zeros(20)
@@ -359,11 +462,11 @@ def contract_duration_predict():
       X_test = construct_sample_duration(input)
 
       # Load the serialized object from the pickle file -> change for duration model
-      with open('dur_xgb.pkl', 'rb') as file:
+      with open('Pickle/dur_xgb.pkl', 'rb') as file:
         loaded_model = pickle.load(file)
 
       # Load the serialized object from the pickle file
-      with open('label_encoder.pkl', 'rb') as file:
+      with open('Pickle/label_encoder.pkl', 'rb') as file:
         label_encoders = pickle.load(file)
 
       #Regression of the Duration - I think reshaping is not necessary
@@ -375,9 +478,24 @@ def contract_duration_predict():
     st.write("# Predicting the Duration of contract")
     st.markdown(
         """
-        ** You are now ready to predict which Business Type will win the contract.**
+        Before predicting the Duration of the contract, you can see the latest trands and visualizations by clicking on the link provided.
+        """
+        )
+    def open_page(url):
+        open_script= """
+        <script type="text/javascript">
+             window.open('%s', '_blank').focus();
+        </script>
+        """ % (url)
+        html(open_script)
+
+    st.button('Click to view tableau dashboard', on_click=open_page, args=('https://public.tableau.com/views/IDS_560_dashboard/Dashboard1?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link',))
+
+    
+    st.markdown(
+        """
+            Let's now predict the duration of the contract.
             Please fill out the fields on the left and click on the button below to see the output.
-            You can also see the latest trands by clicking on the tableau dashboard link provided.
 
         """
         )
@@ -403,10 +521,10 @@ def contract_duration_predict():
 
     select_naicscode = st.sidebar.text_input(label="NAICS Code", placeholder="622109")
 
-    select_pricipalplaceofperformancestate = st.sidebar.selectbox('Principal place of performance state code', ['VA','DC','CA','MD','IN','FL','NY','MO','CO','AK','LA','ID','WY','SD','MT','OR','WA','VT','PA','NM','NJ','IL','MN','TX','WV','AL','PR','KY','SC','NC','OK','GA','AR','MS','NE','MI','OH','IA','DE','NH','KS','WI','AZ','TN','CT','MA','HI','UT','RI','ME','ND','NV','AS','UGANDA','GU','FRANCE','VI','VIETNAM','CANADA','JAPAN','INDIA','CANADA','MEXICO'])
-
+    select_pricipalplaceofperformancestate = st.sidebar.selectbox('Principal place of performance state code', ['VA',	'DC',	'CA',	'MD',	'IN',	'FL',	'NY',	'MO',	'CO',	'AK',	'LA',	'ID',	'WY',	'SD',	'MT',	'OR',	'WA',	'VT',	'PA',	'NM',	'NJ',	'IL',	'MN',	'TX',	'WV',	'AL',	'PR',	'KY',	'SC',	'NC',	'OK',	'GA',	'AR',	'MS',	'NE',	'MI',	'OH',	'IA',	'DE',	'NH',	'KS',	'WI',	'AZ',	'TN',	'CT',	'MA',	'HI',	'UT',	'RI',	'ME',	'ND',	'NV',	'AS',	'UGANDA',	'GU',	'FRANCE',	'VI',	'VIETNAM',	'CANADA',	'JAPAN',	'UNITED KINGDOM',	'BAHRAIN',	'DJIBOUTI',	'SPAIN',	'ITALY',	'GREECE',	'SINGAPORE',	'SRI LANKA',	'BANGLADESH',	'SAMOA',	'PHILIPPINES',	'CAMBODIA',	'MICRONESIA, FEDERATED STATES OF',	'MONGOLIA',	'MALAYSIA',	'NEPAL',	'INDONESIA',	'LAOS',	'MP',	'AUSTRALIA',	'CROATIA',	'ROMANIA',	'CUBA',	'INDIA',	'IRAQ',	'ANGOLA',	'AFGHANISTAN',	'ALGERIA',	'AZERBAIJAN',	'ALBANIA',	'CENTRAL AFRICAN REPUBLIC',	'HONDURAS',	'ISRAEL',	'THAILAND',	'KOREA, SOUTH',	'PERU',	'URUGUAY',	'JAMAICA',	'SOUTH SUDAN',	'BAHAMAS, THE',	'ERITREA',	'NAMIBIA',	'MOROCCO',	'GERMANY',	'SOMALIA',	'JORDAN',	'CAMEROON',	'POLAND',	'MOZAMBIQUE',	'SAUDI ARABIA',	'DOMINICAN REPUBLIC',	'LEBANON',	'CONGO (KINSHASA)',	'TURKEY',	'NEW ZEALAND',	'CONGO (BRAZZAVILLE)',	'TURKMENISTAN',	'GUYANA',	'PARAGUAY',	'CYPRUS',	'SUDAN',	'GUATEMALA',	'KENYA',	'ARGENTINA',	'SOUTH AFRICA',	'BOTSWANA',	'BELGIUM',	'BURMA',	'BRAZIL',	'BURUNDI',	'COLOMBIA',	'CHILE',	'CHINA',	'COSTA RICA',	'IRELAND',	'ECUADOR',	'EL SALVADOR',	'ETHIOPIA',	'CZECHIA',	'FIJI',	'AUSTRIA',	'SLOVENIA',	'UZBEKISTAN',	'SLOVAKIA',	'NORTH MACEDONIA',	'BULGARIA',	'KOSOVO',	'RWANDA',	'GEORGIA',	'KAZAKHSTAN',	'UKRAINE',	'SENEGAL',	'ARMENIA',	'NIGERIA',	'BELARUS',	'ESWATINI',	'MOLDOVA',	'LATVIA',	'NIGER',	'MONTENEGRO',	'BURKINA FASO',	'LESOTHO',	'LITHUANIA',	'EGYPT',	'GABON',	'CHAD',	'PANAMA',	'UNITED ARAB EMIRATES',	'LIBERIA',	'MALAWI',	'MAURITIUS',	'MAURITANIA',	'OMAN',	'CURACAO',	'PAKISTAN',	'PAPUA NEW GUINEA',	'SERBIA',	'TUNISIA',	'TIMOR-LESTE',	'SWITZERLAND',	'ICELAND',	'BOSNIA AND HERZEGOVINA',	'KUWAIT',	'UNITED STATES MINOR OUTLYING ISLANDS',	'GUANTANAMO BAY NAVAL BASE',	'MEXICO',	'GREENLAND',	'PORTUGAL',	'QATAR',	'SYRIA',	'ZIMBABWE',	'TANZANIA',	'GHANA',	'GUINEA',	'MALI',	'DENMARK',	'SWEDEN',	'NETHERLANDS',	'BENIN',	'CABO VERDE',	'SOLOMON ISLANDS'])
+   
     select_pricipalplaceofperformancecountry = st.sidebar.selectbox('Principal place of performance country name',
-                                        ['UNITED STATES','UGANDA','FRANCE','VIETNAM','CANADA','JAPAN','UNITED KINGDOM','BAHRAIN','INDIA','CANADA','MEXICO'])
+                                        ['UNITED STATES',	'UGANDA',	'FRANCE',	'VIETNAM',	'CANADA',	'JAPAN',	'UNITED KINGDOM',	'BAHRAIN',	'DJIBOUTI',	'SPAIN',	'ITALY',	'GREECE',	'SINGAPORE',	'SRI LANKA',	'BANGLADESH',	'SAMOA',	'PHILIPPINES',	'CAMBODIA',	'MICRONESIA, FEDERATED STATES OF',	'MONGOLIA',	'MALAYSIA',	'NEPAL',	'INDONESIA',	'LAOS',	'AUSTRALIA',	'CROATIA',	'ROMANIA',	'CUBA',	'INDIA',	'IRAQ',	'ANGOLA',	'AFGHANISTAN',	'ALGERIA',	'AZERBAIJAN',	'ALBANIA',	'CENTRAL AFRICAN REPUBLIC',	'HONDURAS',	'ISRAEL',	'THAILAND',	'KOREA, SOUTH',	'PERU',	'URUGUAY',	'JAMAICA',	'SOUTH SUDAN',	'BAHAMAS, THE',	'ERITREA',	'NAMIBIA',	'MOROCCO',	'GERMANY',	'SOMALIA',	'JORDAN',	'CAMEROON',	'POLAND',	'MOZAMBIQUE',	'SAUDI ARABIA',	'DOMINICAN REPUBLIC',	'LEBANON',	'CONGO (KINSHASA)',	'TURKEY',	'NEW ZEALAND',	'CONGO (BRAZZAVILLE)',	'TURKMENISTAN',	'GUYANA',	'PARAGUAY',	'CYPRUS',	'SUDAN',	'GUATEMALA',	'KENYA',	'ARGENTINA',	'SOUTH AFRICA',	'BOTSWANA',	'BELGIUM',	'BURMA',	'BRAZIL',	'BURUNDI',	'COLOMBIA',	'CHILE',	'CHINA',	'COSTA RICA',	'IRELAND',	'ECUADOR',	'EL SALVADOR',	'ETHIOPIA',	'CZECHIA',	'FIJI',	'AUSTRIA',	'SLOVENIA',	'UZBEKISTAN',	'SLOVAKIA',	'NORTH MACEDONIA',	'BULGARIA',	'KOSOVO',	'RWANDA',	'GEORGIA',	'KAZAKHSTAN',	'UKRAINE',	'SENEGAL',	'ARMENIA',	'NIGERIA',	'BELARUS',	'ESWATINI',	'MOLDOVA',	'LATVIA',	'NIGER',	'MONTENEGRO',	'BURKINA FASO',	'LESOTHO',	'LITHUANIA',	'EGYPT',	'GABON',	'CHAD',	'PANAMA',	'UNITED ARAB EMIRATES',	'LIBERIA',	'MALAWI',	'MAURITIUS',	'MAURITANIA',	'OMAN',	'CURACAO',	'PAKISTAN',	'PAPUA NEW GUINEA',	'SERBIA',	'TUNISIA',	'TIMOR-LESTE',	'SWITZERLAND',	'ICELAND',	'BOSNIA AND HERZEGOVINA',	'KUWAIT',	'UNITED STATES MINOR OUTLYING ISLANDS',	'GUANTANAMO BAY NAVAL BASE',	'MEXICO',	'GREENLAND',	'PORTUGAL',	'QATAR',	'SYRIA',	'ZIMBABWE',	'TANZANIA',	'GHANA',	'GUINEA',	'MALI',	'DENMARK',	'SWEDEN',	'NETHERLANDS',	'BENIN',	'CABO VERDE',	'SOLOMON ISLANDS'])
 
     select_entity = st.sidebar.selectbox("Domestic or Foreign Entity",['U.S. OWNED BUSINESS','OTHER U.S. ENTITY (E.G. GOVERNMENT)','FOREIGN-OWNED BUSINESS INCORPORATED IN THE U.S.','FOREIGN-OWNED BUSINESS NOT INCORPORATED IN THE U.S.','OTHER FOREIGN ENTITY (E.G. FOREIGN GOVERNMENT)'])
 
@@ -421,10 +539,11 @@ def contract_duration_predict():
     select_localareasetaside = st.sidebar.radio("Local Area Set Aside",('YES','NO'))
 
     select_vendoraddresstatename = st.sidebar.selectbox('Vendor Address State',
-                                        ['ILLINOIS','ARIZONA','TEXAS','CALIFORNIA','NEW YORK','NEW JERSEY','NORTH CAROLINA'])
+                                        ['VIRGINIA',	'MARYLAND',	'FLORIDA',	'RHODE ISLAND',	'CALIFORNIA',	'INDIANA',	'NEW YORK',	'NORTH CAROLINA',	'MINNESOTA',	'MISSOURI',	'ALASKA',	'TEXAS',	'PENNSYLVANIA',	'MISSISSIPPI',	'IDAHO',	'WYOMING',	'OREGON',	'DISTRICT OF COLUMBIA',	'MONTANA',	'WASHINGTON',	'MASSACHUSETTS',	'NEW JERSEY',	'ILLINOIS',	'WEST VIRGINIA',	'COLORADO',	'OHIO',	'ALABAMA',	'KENTUCKY',	'GEORGIA',	'OKLAHOMA',	'LOUISIANA',	'KANSAS',	'NEBRASKA',	'SOUTH CAROLINA',	'NEVADA',	'NEW MEXICO',	'WISCONSIN',	'SOUTH DAKOTA',	'ARKANSAS',	'ARIZONA',	'MICHIGAN',	'PUERTO RICO',	'CONNECTICUT',	'HAWAII',	'TENNESSEE',	'UTAH',	'VERMONT',	'IOWA',	'NEW HAMPSHIRE',	'MAINE',	'DELAWARE',	'NORTH DAKOTA',	'VIRGIN ISLANDS OF THE U.S.',	'GUAM',	'AMERICAN SAMOA',	'NORTHERN MARIANA ISLANDS',	'CANADA',	'FRANCE',	'UNITED KINGDOM',	'JAPAN',	'ROMANIA',	'SPAIN',	'ITALY',	'SINGAPORE',	'SRI LANKA',	'NEW ZEALAND',	'IRAQ',	'MALAYSIA',	'NEPAL',	'INDONESIA',	'PHILIPPINES',	'VIETNAM',	'CROATIA',	'GREECE',	'UNITED ARAB EMIRATES',	'INDIA',	'BAHRAIN',	'BELGIUM',	'COLOMBIA',	'CAMBODIA',	'CONGO (KINSHASA)',	'COSTA RICA',	'FIJI',	'SLOVENIA',	'KENYA',	'UZBEKISTAN',	'MOROCCO',	'SLOVAKIA',	'BULGARIA',	'ALBANIA',	'KAZAKHSTAN',	'AZERBAIJAN',	'UKRAINE',	'SENEGAL',	'SOUTH AFRICA',	'THAILAND',	'NIGERIA',	'ARMENIA',	'LITHUANIA',	'BURUNDI',	'UGANDA',	'MOLDOVA',	'ALGERIA',	'ESTONIA',	'LATVIA',	'MOZAMBIQUE',	'RWANDA',	'CYPRUS',	'GABON',	'MONTENEGRO',	'NETHERLANDS',	'KOREA, SOUTH',	'NIGER',	'PANAMA',	'SERBIA',	'SOUTH SUDAN',	'SWITZERLAND',	'GERMANY',	'BOTSWANA',	'ICELAND',	'SAUDI ARABIA',	'POLAND',	'NORTH MACEDONIA',	'KOSOVO',	'BOSNIA AND HERZEGOVINA',	'PERU',	'KUWAIT',	'PORTUGAL',	'DENMARK',	'QATAR',	'GHANA',	'ISRAEL',	'MALI',	'SWEDEN',	'AUSTRALIA',	'AUSTRIA',	'JORDAN'])
 
     select_vendoraddresscountryname = st.sidebar.selectbox('Vendor address country name',
-                                        ['UNITED STATES','INDIA','CANADA','MEXICO'])
+                                        ['UNITED STATES',	'CANADA',	'FRANCE',	'UNITED KINGDOM',	'JAPAN',	'ROMANIA',	'GUAM',	'SPAIN',	'ITALY',	'SINGAPORE',	'SRI LANKA',	'NEW ZEALAND',	'IRAQ',	'MALAYSIA',	'NEPAL',	'INDONESIA',	'PHILIPPINES',	'VIETNAM',	'CROATIA',	'GREECE',	'UNITED ARAB EMIRATES',	'INDIA',	'BAHRAIN',	'BELGIUM',	'COLOMBIA',	'CAMBODIA',	'CONGO (KINSHASA)',	'COSTA RICA',	'FIJI',	'SLOVENIA',	'KENYA',	'UZBEKISTAN',	'MOROCCO',	'SLOVAKIA',	'BULGARIA',	'ALBANIA',	'GEORGIA',	'KAZAKHSTAN',	'AZERBAIJAN',	'UKRAINE',	'SENEGAL',	'SOUTH AFRICA',	'THAILAND',	'NIGERIA',	'ARMENIA',	'LITHUANIA',	'BURUNDI',	'UGANDA',	'MOLDOVA',	'ALGERIA',	'ESTONIA',	'LATVIA',	'MOZAMBIQUE',	'RWANDA',	'CYPRUS',	'GABON',	'MONTENEGRO',	'NETHERLANDS',	'KOREA, SOUTH',	'NIGER',	'PANAMA',	'SERBIA',	'SOUTH SUDAN',	'SWITZERLAND',	'GERMANY',	'BOTSWANA',	'ICELAND',	'SAUDI ARABIA',	'POLAND',	'NORTH MACEDONIA',	'KOSOVO',	'BOSNIA AND HERZEGOVINA',	'PERU',	'KUWAIT',	'PORTUGAL',	'DENMARK',	'QATAR',	'GHANA',	'ISRAEL',	'MALI',	'SWEDEN',	'AUSTRALIA',	'AUSTRIA',	'JORDAN'])
+
 
     select_laborstandards = st.sidebar.radio("Labor Standards",('YES','NO','NOT APPLICABLE'))
 
@@ -441,10 +560,7 @@ def contract_duration_predict():
     select_countryofprodservorigin = st.sidebar.selectbox('Country of Product or Service Origin',
                                         ['UNITED STATES','INDIA','CANADA','MEXICO'])
 
-    html_temp1 = "<div class='tableauPlaceholder' id='viz1711381846728' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ID&#47;IDS_560_dashboard&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='IDS_560_dashboard&#47;Dashboard1' /><param name='tabs' value='yes' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ID&#47;IDS_560_dashboard&#47;Dashboard1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1711381846728');                    var vizElement = divElement.getElementsByTagName('object')[0];                 if ( divElement.offsetWidth > 800 ) { vizElement.style.width='2850px';vizElement.style.height='1727px';}else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='2850px';vizElement.style.height='1727px';} else { vizElement.style.width='100%';vizElement.style.height='2077px';}               var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>"
-    components.html(html_temp1)
-
-
+   
     def main():
       import pickle
       import pandas as pd
@@ -482,15 +598,15 @@ def contract_duration_predict():
       from sklearn.metrics import accuracy_score
       from sklearn.linear_model import Ridge
       # Load the serialized object from the pickle file
-      with open('dur_xgb.pkl', 'rb') as file:
+      with open('Pickle/dur_xgb.pkl', 'rb') as file:
         loaded_model = pickle.load(file)
 
       # Load the serialized object from the pickle file
-      with open('label_encoder.pkl', 'rb') as file:
+      with open('Pickle/label_encoder.pkl', 'rb') as file:
         label_encoders = pickle.load(file)
 
-    html_temp = "<div class='tableauPlaceholder' id='viz1710733360364' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ID&#47;IDS_560_dashboard&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='IDS_560_dashboard&#47;Dashboard1' /><param name='tabs' value='yes' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ID&#47;IDS_560_dashboard&#47;Dashboard1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1710733360364');                    var vizElement = divElement.getElementsByTagName('object')[0];                    if ( divElement.offsetWidth > 800 ) { vizElement.style.minWidth='1620px';vizElement.style.maxWidth='1720px';vizElement.style.width='100%';vizElement.style.minHeight='818px';vizElement.style.maxHeight='910px';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.minWidth='1620px';vizElement.style.maxWidth='1720px';vizElement.style.width='100%';vizElement.style.minHeight='818px';vizElement.style.maxHeight='910px';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else { vizElement.style.width='100%';vizElement.style.height='1250px';}                     var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>"
-    components.html(html_temp)
+    #html_temp = "<div class='tableauPlaceholder' id='viz1710733360364' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ID&#47;IDS_560_dashboard&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='IDS_560_dashboard&#47;Dashboard1' /><param name='tabs' value='yes' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ID&#47;IDS_560_dashboard&#47;Dashboard1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1710733360364');                    var vizElement = divElement.getElementsByTagName('object')[0];                    if ( divElement.offsetWidth > 800 ) { vizElement.style.minWidth='1620px';vizElement.style.maxWidth='1720px';vizElement.style.width='100%';vizElement.style.minHeight='818px';vizElement.style.maxHeight='910px';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.minWidth='1620px';vizElement.style.maxWidth='1720px';vizElement.style.width='100%';vizElement.style.minHeight='818px';vizElement.style.maxHeight='910px';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else { vizElement.style.width='100%';vizElement.style.height='1250px';}                     var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>"
+    #components.html(html_temp)
 
     if st.button ("Predict the Duration of the contract"):
       output = run_pred_duration(select_agencyid,select_contracttype,select_naicscode,select_pricipalplaceofperformancestate,
@@ -507,7 +623,7 @@ def contract_duration_predict():
        main()
 
 page_names_to_funcs = {
-    "—": intro,
+    "Home Page": intro,
     "Predict Business Type": business_type_predict,
     "Predict Contract Value": contract_value_predict,
     "Predict Contract Duration": contract_duration_predict
