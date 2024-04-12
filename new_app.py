@@ -480,27 +480,6 @@ def contract_value_predict():
         """
     )
     
-    ##What Sunaina put together
-    st.write('Predicting the contract value')
-    
-    def open_page(url):
-            open_script= """
-            <script type="text/javascript">
-                 window.open('%s', '_blank').focus();
-            </script>
-            """ % (url)
-            html(open_script)
-    
-    st.button('Click to view tableau dashboard', on_click=open_page, args=('https://public.tableau.com/views/IDS_560_dashboard/Dashboard1?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link',))
-    
-    st.markdown(
-        """
-            Let's now predict the Contract Value.
-            Please fill out the fields on the left and click on the button below to see the output.
-    
-        """
-        )
-    
     if st.button ("Predict the Contract Value"):
         #Adjusting the choice of models and scalers made by users
       if contract_type == 'Expensive':
