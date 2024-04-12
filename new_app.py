@@ -377,7 +377,7 @@ def contract_value_predict():
         ''' % bin_str
         st.markdown(page_bg_img, unsafe_allow_html=True)
     set_background("Images/GovernmentContract_Val.png") 
-
+    st.write("# Predicting the Contract Value")
     st.markdown(
             """
             Before predicting the Contract Value, you can see the latest trands and visualizations by clicking on the link provided.
@@ -473,13 +473,7 @@ def contract_value_predict():
 
     #Body of the page
     
-    st.write("# Predicting the Contract Value")
-    st.markdown(
-        """
-        Before predicting the Contract Value, you can see the latest trends and visualizations by clicking on the link provided.
-        """
-    )
-    
+
     if st.button ("Predict the Contract Value"):
         #Adjusting the choice of models and scalers made by users
       if contract_type == 'Expensive':
