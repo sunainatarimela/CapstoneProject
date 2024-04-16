@@ -92,8 +92,8 @@ def intro():
         "Images/l4-modified.png",
         "Images/l5-modified.png",
     ]
-    image_iterator = paginator("Select a sunset page", sunset_imgs)
-    indices_on_page, images_on_page = map(list, zip(*image_iterator))
+   # image_iterator = paginator("Select a sunset page", sunset_imgs)
+    indices_on_page, images_on_page = map(list, zip(*sunset_imgs[]))
     st.image(images_on_page, width=100, caption=indices_on_page)
                                                                
 def business_type_predict():
