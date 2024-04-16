@@ -96,15 +96,15 @@ def intro():
     for idx, img in enumerate(linkedin_imgs): 
         cols = st.columns(5) 
         
-        cols[0].image(linkedin_imgs[idx], width = 50)
+        cols[0].image(linkedin_imgs[idx], use_column_width=50)
         idx+=1
-        cols[1].image(linkedin_imgs[idx], width = 50)
+        cols[1].image(linkedin_imgs[idx], use_column_width=50)
         idx+=idx
-        cols[2].image(linkedin_imgs[idx], width = 50)
+        cols[2].image(linkedin_imgs[idx], use_column_width=50)
         idx+=idx
-        cols[3].image(linkedin_imgs[idx], use_column_width=True)
+        cols[3].image(linkedin_imgs[idx], use_column_width=50)
         idx+=idx
-        cols[4].image(linkedin_imgs[idx], use_column_width=True)
+        cols[4].image(linkedin_imgs[idx], use_column_width=50)
         idx+=idx
 
 
