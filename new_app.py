@@ -93,10 +93,13 @@ def intro():
     for idx, img in enumerate(linkedin_imgs): 
         cols = st.columns(5) 
         cols[0].image(linkedin_imgs[idx], use_column_width=True)
+        st.markdown("""
+        [Sunaina Tarimela](https://www.linkedin.com/in/sunaina-tarimela-b45139113)
+        """)
         idx+=1
         cols[1].image(linkedin_imgs[idx], use_column_width=True)
         #url = "www.linkedin.com/in/sunaina-tarimela-b45139113"
-        st.markdown('<a href="www.linkedin.com/in/sunaina-tarimela-b45139113">Sunaina Tarimela</a>', unsafe_allow_html=True)
+        #st.markdown('<a href="www.linkedin.com/in/sunaina-tarimela-b45139113">Sunaina Tarimela</a>', unsafe_allow_html=True)
         #st.write("[Sunaina Tarimela](%s)" % url)
         idx+=1
         cols[2].image(linkedin_imgs[idx], use_column_width=True)
