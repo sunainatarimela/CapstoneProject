@@ -92,19 +92,19 @@ def intro():
         "Images/l4-modified.png",
         "Images/l5-modified.png",
     ]
-
-     for idx, img in enumerate(linkedin_imgs): 
+    idx = 0
+    for idx, img in enumerate(linkedin_imgs): 
         cols = st.beta_columns(5) 
         
-        cols[0].image(filteredImages[idx], use_column_width=True)
+        cols[0].image(linkedin_imgs[idx], use_column_width=True)
         idx+=1
-        cols[1].image(filteredImages[idx], use_column_width=True)
+        cols[1].image(linkedin_imgs[idx], use_column_width=True)
         idx+=idx
-        cols[2].image(filteredImages[idx], use_column_width=True)
+        cols[2].image(linkedin_imgs[idx], use_column_width=True)
         idx+=idx
-        cols[3].image(filteredImages[idx], use_column_width=True)
+        cols[3].image(linkedin_imgs[idx], use_column_width=True)
         idx+=idx
-        cols[4].image(filteredImages[idx], use_column_width=True)
+        cols[4].image(linkedin_imgs[idx], use_column_width=True)
         idx+=idx
 
 
