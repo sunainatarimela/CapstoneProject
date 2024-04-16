@@ -93,17 +93,22 @@ def intro():
         "Images/l5-modified.png",
     ]
 
+
+    # col1,col2,col3,col4,col5 = 
+    idx=0
     for idx, img in enumerate(linkedin_imgs): 
         cols = st.columns(6) 
-        
+        # for i in range(5):
+        #     with col[i]:
+        #         st.image(linkedin_imgs[i])
         cols[0].image(linkedin_imgs[idx], use_column_width=True)
         idx+=1
         cols[1].image(linkedin_imgs[idx], use_column_width=True)
-        idx+=idx
+        idx+=1
         cols[2].image(linkedin_imgs[idx], use_column_width=True)
-        idx+=idx
+        idx+=1
         cols[3].image(linkedin_imgs[idx], use_column_width=True)
-        idx+=idx
+        idx+=1
         cols[4].image(linkedin_imgs[idx], use_column_width=True)
         
 
