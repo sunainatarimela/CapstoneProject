@@ -79,11 +79,6 @@ def intro():
     
     st.write("# ------------------------------------------------")
     st.write("Project Collaborators")
-    #st.image("Images/l1-modified.png",width=40)
-    #st.image("Images/l2-modified.png",width=40)
-    #st.image("Images/l3-modified.png",width=40)
-    #st.image("Images/l4-modified.png",width=40)
-    #st.image("Images/l5-modified.png",width=40)
 
     linkedin_imgs = [
         "Images/l1-modified.png",
@@ -99,7 +94,10 @@ def intro():
         cols = st.columns(5) 
         cols[0].image(linkedin_imgs[idx], use_column_width=True)
         idx+=1
+        
         cols[1].image(linkedin_imgs[idx], use_column_width=True)
+        url = "www.linkedin.com/in/sunaina-tarimela-b45139113"
+        st.write("Sunaina Tarimela [link](%s)" % url)
         idx+=1
         cols[2].image(linkedin_imgs[idx], use_column_width=True)
         idx+=1
@@ -107,6 +105,23 @@ def intro():
         idx+=1
         cols[4].image(linkedin_imgs[idx], use_column_width=True)
         break
+
+
+
+    idx1=0
+    for idx1, img in enumerate(linkedin_imgs): 
+        cols = st.columns(5) 
+        cols[0].image(linkedin_imgs[idx1], use_column_width=True)
+        idx1+=1
+        cols[1].image(linkedin_imgs[idx1], use_column_width=True)
+        idx1+=1
+        cols[2].image(linkedin_imgs[idx1], use_column_width=True)
+        idx1+=1
+        cols[3].image(linkedin_imgs[idx1], use_column_width=True)
+        idx1+=1
+        cols[4].image(linkedin_imgs[idx1], use_column_width=True)
+        break
+    
 
 
 def business_type_predict():
