@@ -97,8 +97,9 @@ def intro():
         
         cols[1].image(linkedin_imgs[idx], use_column_width=True)
         url = "www.linkedin.com/in/sunaina-tarimela-b45139113"
+        text='[Suanina Tarimela]({Sunaina Tarimela})'.format(link=url)
         st.markdown(url,unsafe_allow_html=True)
-        st.write("[Sunaina Tarimela](%s)" % url)
+        #st.write("[Sunaina Tarimela](%s)" % url)
         idx+=1
         cols[2].image(linkedin_imgs[idx], use_column_width=True)
         idx+=1
