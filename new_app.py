@@ -79,11 +79,11 @@ def intro():
     
     st.write("# ------------------------------------------------")
     st.write("Project Collaborators")
-    st.image("Images/l1-modified.png",width=40)
-    st.image("Images/l2-modified.png",width=40)
-    st.image("Images/l3-modified.png",width=40)
-    st.image("Images/l4-modified.png",width=40)
-    st.image("Images/l5-modified.png",width=40)
+    #st.image("Images/l1-modified.png",width=40)
+    #st.image("Images/l2-modified.png",width=40)
+    #st.image("Images/l3-modified.png",width=40)
+    #st.image("Images/l4-modified.png",width=40)
+    #st.image("Images/l5-modified.png",width=40)
 
     linkedin_imgs = [
         "Images/l1-modified.png",
@@ -94,13 +94,9 @@ def intro():
     ]
 
 
-    # col1,col2,col3,col4,col5 = 
     idx=0
     for idx, img in enumerate(linkedin_imgs): 
-        cols = st.columns(6) 
-        # for i in range(5):
-        #     with col[i]:
-        #         st.image(linkedin_imgs[i])
+        cols = st.columns(5) 
         cols[0].image(linkedin_imgs[idx], use_column_width=True)
         idx+=1
         cols[1].image(linkedin_imgs[idx], use_column_width=True)
