@@ -77,8 +77,25 @@ def intro():
     )
 
     
-    st.write("# --------------------------------------------------------------------------")
-    st.image('Images/l1-modified.png')
+    st.write("# ----------------------------------------------------------------")
+    def get_base64(bin_file):
+    with open(bin_file, 'rb') as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+    def set_image(png_file):
+    bin_str = get_base64(png_file)
+    page_bg_img = '''
+    <style>
+    .stApp {
+    image: url("data:image/png;base64,%s");
+    }
+    </style>
+    ''' % bin_str
+    st.markdown(page_bg_img, unsafe_allow_html=True)
+s
+    set_image("Images/GovernmentContract_4.png")
+    st.image("Images/l1-modified.png")
 
                                                                
 def business_type_predict():
