@@ -100,11 +100,11 @@ def intro():
         idx+=1
         cols[1].image(linkedin_imgs[idx], use_column_width=True)
         idx+=idx
-        cols[2].image(linkedin_imgs[idx], use_column_width=50)
+        cols[2].image(linkedin_imgs[idx], use_column_width=True)
         idx+=idx
-        cols[3].image(linkedin_imgs[idx], use_column_width=50)
+        cols[3].image(linkedin_imgs[idx], use_column_width=True)
         idx+=idx
-        cols[4].image(linkedin_imgs[idx], use_column_width=50)
+        cols[4].image(linkedin_imgs[idx], use_column_width=True)
         
 
 
