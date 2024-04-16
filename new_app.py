@@ -106,7 +106,7 @@ def intro():
         cols[3].image(linkedin_imgs[idx], use_column_width=True)
         idx+=1
         cols[4].image(linkedin_imgs[idx], use_column_width=True)
-        
+        break
 
 
 def business_type_predict():
