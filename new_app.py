@@ -108,7 +108,10 @@ def intro():
         cols[4].markdown('<a href="https://www.linkedin.com/in/janhavigulabani/">Janhavi Gulabani</a>', unsafe_allow_html=True)
         break
 
-    
+    st.markdown("""
+        This project has been completed under the guidance of our professor, [Dr.Fatemeh Sarayloo](https://business.uic.edu/profiles/sarayloo-fatemeh/)
+        """
+        )
 
 
 def business_type_predict():
