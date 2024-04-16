@@ -94,7 +94,7 @@ def intro():
     ]
 
     for idx, img in enumerate(linkedin_imgs): 
-        cols = st.columns(5) 
+        cols = st.columns(6) 
         
         cols[0].image(linkedin_imgs[idx], use_column_width=True)
         idx+=1
