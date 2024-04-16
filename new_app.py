@@ -93,19 +93,19 @@ def intro():
     for idx, img in enumerate(linkedin_imgs): 
         cols = st.columns(5) 
         cols[0].image(linkedin_imgs[idx], use_column_width=True)
-        cols[0].markdown('<a href="https://www.linkedin.com/in/aarshvyas/">Aarsh Vyas</a>', unsafe_allow_html=True)
+        cols[0].markdown('<a href="https://www.linkedin.com/in/nabila-rg/">Nabila Fakhruddin</a>', unsafe_allow_html=True)
         idx+=1
         cols[1].image(linkedin_imgs[idx], use_column_width=True)
         cols[1].markdown('<a href="https://www.linkedin.com/in/sunaina-tarimela-b45139113">Sunaina Tarimela</a>', unsafe_allow_html=True)
         idx+=1
         cols[2].image(linkedin_imgs[idx], use_column_width=True)
-        cols[2].markdown('<a href="https://www.linkedin.com/in/janhavigulabani/">Janhavi Gulabani</a>', unsafe_allow_html=True)
+        cols[2].markdown('<a href="https://www.linkedin.com/in/vojtech-mensik-42a4391a1/">Vojtech Mensik</a>', unsafe_allow_html=True)
         idx+=1
         cols[3].image(linkedin_imgs[idx], use_column_width=True)
-        cols[3].markdown('<a href="https://www.linkedin.com/in/nabila-rg/">Nabila Fakhruddin</a>', unsafe_allow_html=True)
+        cols[3].markdown('<a href="https://www.linkedin.com/in/aarshvyas/">Aarsh Vyas</a>', unsafe_allow_html=True)
         idx+=1
         cols[4].image(linkedin_imgs[idx], use_column_width=True)
-        cols[4].markdown('<a href="https://www.linkedin.com/in/vojtech-mensik-42a4391a1/">Vojtech Mensik</a>', unsafe_allow_html=True)
+        cols[4].markdown('<a href="https://www.linkedin.com/in/janhavigulabani/">Janhavi Gulabani</a>', unsafe_allow_html=True)
         break
 
     
