@@ -81,11 +81,11 @@ def intro():
     st.write("Project Collaborators")
 
     linkedin_imgs = [
-        "Images/l1-modified.png",
-        "Images/l2-modified.png",
-        "Images/l3-modified.png",
         "Images/l4-modified.png",
+        "Images/l2-modified.png",
         "Images/l5-modified.png",
+        "Images/l1-modified.png",
+        "Images/l3-modified.png",
     ]
 
 
