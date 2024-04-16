@@ -92,7 +92,7 @@ def intro():
         "Images/l4-modified.png",
         "Images/l5-modified.png",
     ]
-    idx = 0
+
     for idx, img in enumerate(linkedin_imgs): 
         cols = st.columns(5) 
         
