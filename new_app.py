@@ -84,6 +84,17 @@ def intro():
     st.image("Images/l3-modified.png",width=40)
     st.image("Images/l4-modified.png",width=40)
     st.image("Images/l5-modified.png",width=40)
+
+    sunset_imgs = [
+        "Images/l1-modified.png",
+        "Images/l2-modified.png",
+        "Images/l3-modified.png",
+        "Images/l4-modified.png",
+        "Images/l5-modified.png",
+    ]
+    image_iterator = paginator("Select a sunset page", sunset_imgs)
+    indices_on_page, images_on_page = map(list, zip(*image_iterator))
+    st.image(images_on_page, width=100, caption=indices_on_page)
                                                                
 def business_type_predict():
     import pandas as pd
