@@ -78,7 +78,7 @@ def intro():
 
     
     st.write("# ----------------------------------------------------------------")
-    st.image("Images/l1-modified.png",width=40)
+    st.image("Images/l1-modified.png",width=40,height=40)
 
                                                                
 def business_type_predict():
