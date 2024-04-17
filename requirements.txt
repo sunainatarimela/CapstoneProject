@@ -14,7 +14,7 @@ scipy==1.11.4
 seaborn==0.13.1
 sklearn-pandas==2.2.0
 xgboost==2.0.3
-python==3.10.0
+python==3.10
 torch==2.2.1+cpu121
 torchvision
 lstm
