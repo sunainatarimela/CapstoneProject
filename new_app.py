@@ -251,7 +251,7 @@ def business_type_predict():
         """ % (url)
         html(open_script)
 
-    st.button('Click to view tableau dashboard', on_click=open_page, args=('https://public.tableau.com/views/IDS_560_dashboard/Dashboard1?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link',))
+    st.button('Click to view tableau dashboard', on_click=open_page, args=('https://public.tableau.com/views/IDS560_dashboard_N/Story1?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link',))
 
     
     st.markdown(
@@ -428,7 +428,7 @@ def contract_value_predict():
         """ % (url)
         html(open_script)
 
-    st.button('Click to view tableau dashboard', on_click=open_page, args=('https://public.tableau.com/views/IDS_560_dashboard/Dashboard1?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link',))
+    st.button('Click to view tableau dashboard', on_click=open_page, args=('https://public.tableau.com/views/IDS560_dashboard_N/Story1?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link',))
     
         
     st.markdown(
@@ -634,7 +634,7 @@ def contract_duration_predict():
         """ % (url)
         html(open_script)
 
-    st.button('Click to view tableau dashboard', on_click=open_page, args=('https://public.tableau.com/views/IDS_560_dashboard/Dashboard1?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link',))
+    st.button('Click to view tableau dashboard', on_click=open_page, args=('https://public.tableau.com/views/IDS560_dashboard_N/Story1?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link',))
 
     
     st.markdown(
