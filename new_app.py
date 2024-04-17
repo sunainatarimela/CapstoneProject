@@ -458,9 +458,9 @@ def contract_value_predict():
         
     #Reading the FILES
     #MODELS - with torch
-    model_expensive = torch.load('Pickle/expensive_model.pth')
-    model_medium = torch.load('Pickle/medium_model.pth')
-    model_cheap = torch.load('Pickle/cheap_model.pth')
+    model_expensive = pickle.load('Pickle/expensive_model.pth')
+    model_medium = pickle.load('Pickle/medium_model.pth')
+    model_cheap = pickle.load('Pickle/cheap_model.pth')
 
     #SCALERS
     with open('Pickle/epensive_scaler.pkl', 'rb') as f:
