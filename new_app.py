@@ -545,7 +545,8 @@ def contract_value_predict():
             out = self.fc(out[:,-1,:]) ## out
             return out
         ##
-    
+    if __name__ == "__main__":
+        main()
 
 def contract_duration_predict():
     import pandas as pd
