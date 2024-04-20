@@ -370,7 +370,28 @@ def contract_value_predict():
     #sklearn
     from sklearn.preprocessing import MinMaxScaler
     from sklearn.metrics import mean_squared_error as MSE
+
+    ## The architecture of LSTM needed to be present for the imported models to run
+    class LSTM(nn.Module):
+      def __init__(self,input_size, hidden_size, num_stacked_layers):
+        super().__init__()
+        self.hidden_size = hidden_size
+        self.num_stacked_layers = num_stacked_layers
+        self.lstm = nn.LSTM(input_size = input_size,
+                            hidden_size = hidden_size,
+                            num_layers = num_stacked_layers,
+                            batch_first = True)
+        self.fc = nn.Linear(hidden_size,1)
+
+      def forward(self,x):
     
+        #initialize the states
+        h0 = torch.zeros(self.num_stacked_layers, x.size(0),self.hidden_size)
+        c0 = torch.zeros(self.num_stacked_layers, x.size(0),self.hidden_size)
+        out, _ = self.lstm(x, (h0,c0))
+        out = self.fc(out[:,-1,:]) ## out
+        return out
+    ##
     def get_base64(bin_file):
         with open(bin_file, 'rb') as f:
             data = f.read()
@@ -537,6 +558,7 @@ def contract_value_predict():
         import base64
         import streamlit.components.v1 as components
         from streamlit.components.v1 import html
+        import pickle
 
 
         #sklearn
@@ -563,8 +585,21 @@ def contract_value_predict():
             out = self.fc(out[:,-1,:]) ## out
             return out
         ##
-    if __name__ == "__main__":
-        main()
+        #MODELS - with torch
+        model_expensive = torch.load('Pickle/expensive_model.pth')
+        model_medium = torch.load('Pickle/medium_model.pth')
+        model_cheap = torch.load('Pickle/cheap_model.pth')
+
+        #SCALERS
+        with open('Pickle/epensive_scaler.pkl', 'rb') as f:
+            expensive_scaler = pickle.load(f)
+        with open('Pickle/medium_scaler.pkl', 'rb') as f:
+            medium_scaler = pickle.load(f)
+        with open('Pickle/cheap_scaler.pkl', 'rb') as f:
+            cheap_scaler = pickle.load(f)
+    
+        if __name__ == "__main__":
+            main()
 
 def contract_duration_predict():
     import pandas as pd
