@@ -413,11 +413,12 @@ def contract_value_predict():
         </style>
         ''' % bin_str
         st.markdown(page_bg_img, unsafe_allow_html=True)
+        
     set_background("Images/GovernmentContract_Val.png") 
     st.write("# Predicting the Contract Value")
     st.markdown(
             """
-            Before predicting the Contract Value, you can see the latest trands and visualizations by clicking on the link provided.
+            Before predicting the Contract Value, you can see the latest trends and visualizations by clicking on the link provided.
             """
             )
     def open_page(url):
@@ -440,20 +441,39 @@ def contract_value_predict():
             )
     st.button ("Predict the Contract Value")
     
-    #Sliders instead of the boxes
-    x1 = st.sidebar.slider("Contract Value Week1", min_value=0e1, max_value=1e10, value=1e8, step=1e2)
-    x2 = st.sidebar.slider("Contract Value Week2", min_value=0e1, max_value=1e10, value=2e8, step=1e2)
-    x3 = st.sidebar.slider("Contract Value Week3", min_value=0e1, max_value=1e10, value=3e8, step=1e2)
-    x4 = st.sidebar.slider("Contract Value Week4", min_value=0e1, max_value=1e10, value=4e8, step=1e2)
-    x5 = st.sidebar.slider("Contract Value Week5", min_value=0e1, max_value=1e10, value=3e8, step=1e2)
+    # #Sliders instead of the boxes
+    # x1 = st.sidebar.slider("Contract Value Week1", min_value=0e1, max_value=1e10, value=1e8, step=1e2)
+    # x2 = st.sidebar.slider("Contract Value Week2", min_value=0e1, max_value=1e10, value=2e8, step=1e2)
+    # x3 = st.sidebar.slider("Contract Value Week3", min_value=0e1, max_value=1e10, value=3e8, step=1e2)
+    # x4 = st.sidebar.slider("Contract Value Week4", min_value=0e1, max_value=1e10, value=4e8, step=1e2)
+    # x5 = st.sidebar.slider("Contract Value Week5", min_value=0e1, max_value=1e10, value=3e8, step=1e2)
 
+    # contract_type = st.sidebar.radio("Contract type",('Expensive','Medium','Cheap'))
+    
+    #CHANGE - Vojta
     contract_type = st.sidebar.radio("Contract type",('Expensive','Medium','Cheap'))
+
+    if contract_type == 'Expensive':
+      max_value = 1e11
+      value = 1e10
+    elif contract_type == 'Medium':
+      max_value = 1e9
+      value = 1e8
+    elif contract_type == 'Cheap':
+      max_value = 1e8
+      value = 1e7
+    
+    #Sliders instead of the boxes
+    x1 = st.sidebar.slider("Contract value 5 weeks ago", min_value=0e1, max_value=max_value, value=value, step=1e2)
+    x2 = st.sidebar.slider("Contract value 4 weeks ago", min_value=0e1, max_value=max_value, value=value, step=1e2)
+    x3 = st.sidebar.slider("Contract value 3 weeks ago", min_value=0e1, max_value=max_value, value=value, step=1e2)
+    x4 = st.sidebar.slider("Contract value 2 weeks ago", min_value=0e1, max_value=max_value, value=value, step=1e2)
+    x5 = st.sidebar.slider("Contract value last week", min_value=0e1, max_value=max_value, value=value, step=1e2)
     
     #Choosing the option
     print(contract_type)
     
     #Compiling into an INPUT
-    # input = [select_value1,select_value2,select_value3,select_value4,select_value5]
     input = [x1,x2,x3,x4,x5]
         
     #Reading the FILES
@@ -469,7 +489,6 @@ def contract_value_predict():
         medium_scaler = pickle.load(f)
     with open('Pickle/cheap_scaler.pkl', 'rb') as f:
         cheap_scaler = pickle.load(f)
-        
         
     def perform_prediction(input, model, scaler):
       '''Scale the input and compute the predicted value'''
