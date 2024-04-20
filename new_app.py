@@ -436,14 +436,7 @@ def contract_value_predict():
     
             """
             )
-    st.button ("Predict the Contract Value")
-    
-    # #Sliders instead of the boxes
-    # x1 = st.sidebar.slider("Contract Value Week1", min_value=0e1, max_value=1e10, value=1e8, step=1e2)
-    # x2 = st.sidebar.slider("Contract Value Week2", min_value=0e1, max_value=1e10, value=2e8, step=1e2)
-    # x3 = st.sidebar.slider("Contract Value Week3", min_value=0e1, max_value=1e10, value=3e8, step=1e2)
-    # x4 = st.sidebar.slider("Contract Value Week4", min_value=0e1, max_value=1e10, value=4e8, step=1e2)
-    # x5 = st.sidebar.slider("Contract Value Week5", min_value=0e1, max_value=1e10, value=3e8, step=1e2)
+    #st.button ("Predict the Contract Value")
 
     # contract_type = st.sidebar.radio("Contract type",('Expensive','Medium','Cheap'))
     
@@ -501,18 +494,6 @@ def contract_value_predict():
       scaled_input, predicted_y = perform_prediction(input, model, scaler)
       input_org = scaler.inverse_transform(scaled_input.reshape(-1,1))
       prediction_org = scaler.inverse_transform(predicted_y)
-    
-      # # PLotting in the scaled down version
-      # fig_value, ax = plt.subplots()
-      # ax.plot(scaled_input, label = 'Actual')
-      # ax.plot([4,5], np.concatenate((scaled_input[-1].reshape(-1,1),predicted_y)), label = 'Predictions')
-      # ax.set_title(title_name)
-      # ax.set_ylabel(y_xis_name)
-      # plt.legend()
-      # plt.show()
-      # st.pyplot(fig_value)
-    
-    
       # Origninal units
       fig_org, ax = plt.subplots()
       ax.plot(input_org, label = 'Actual')
@@ -524,26 +505,7 @@ def contract_value_predict():
       # plt.show()
       return prediction_org
       
-    #Body of the page
 
-    if st.button ("Predict the Contract Value"):
-        #Adjusting the choice of models and scalers made by users
-      if contract_type == 'Expensive':
-        model = model_expensive
-        scaler = expensive_scaler
-        title = 'Expensive'
-      elif contract_type == 'Medium':
-        model = model_medium
-        scaler = medium_scaler
-        title = 'Medium'
-      elif contract_type == 'Cheap':
-        model = model_cheap
-        scaler = cheap_scaler
-        title = 'Cheap'
-    
-    prediction = print_the_prediction(input, model, scaler, f'{title} Value', 'Contract value')
-    st.write(f'The predicted value of the next week: {prediction}')
-    
     def main():
         import streamlit as st
         import html
@@ -598,9 +560,30 @@ def contract_value_predict():
         with open('Pickle/cheap_scaler.pkl', 'rb') as f:
             cheap_scaler = pickle.load(f)
     
-        if __name__ == "__main__":
-            main()
+    #Body of the page
 
+    if st.button ("Predict the Contract Value"):
+        #Adjusting the choice of models and scalers made by users
+      if contract_type == 'Expensive':
+        model = model_expensive
+        scaler = expensive_scaler
+        title = 'Expensive'
+      elif contract_type == 'Medium':
+        model = model_medium
+        scaler = medium_scaler
+        title = 'Medium'
+      elif contract_type == 'Cheap':
+        model = model_cheap
+        scaler = cheap_scaler
+        title = 'Cheap'
+    prediction = print_the_prediction(input, model, scaler, f'{title} Value', 'Contract value')
+    st.write(f'The predicted value of the next week: {prediction}')
+    
+    if __name__ == "__main__":
+        main()
+
+    
+    
 def contract_duration_predict():
     import pandas as pd
     import numpy as np
@@ -823,8 +806,7 @@ def contract_duration_predict():
       with open('Pickle/label_encoder.pkl', 'rb') as file:
         label_encoders = pickle.load(file)
 
-    #html_temp = "<div class='tableauPlaceholder' id='viz1710733360364' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ID&#47;IDS_560_dashboard&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='IDS_560_dashboard&#47;Dashboard1' /><param name='tabs' value='yes' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ID&#47;IDS_560_dashboard&#47;Dashboard1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1710733360364');                    var vizElement = divElement.getElementsByTagName('object')[0];                    if ( divElement.offsetWidth > 800 ) { vizElement.style.minWidth='1620px';vizElement.style.maxWidth='1720px';vizElement.style.width='100%';vizElement.style.minHeight='818px';vizElement.style.maxHeight='910px';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.minWidth='1620px';vizElement.style.maxWidth='1720px';vizElement.style.width='100%';vizElement.style.minHeight='818px';vizElement.style.maxHeight='910px';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else { vizElement.style.width='100%';vizElement.style.height='1250px';}                     var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>"
-    #components.html(html_temp)
+
 
     if st.button ("Predict the Duration of the contract"):
       output = run_pred_duration(select_agencyid,select_contracttype,select_naicscode,select_pricipalplaceofperformancestate,
