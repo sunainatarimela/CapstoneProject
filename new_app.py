@@ -616,10 +616,10 @@ def contract_value_predict():
         scaler = cheap_scaler
         title = 'Cheap'
     
-  prediction = print_the_prediction(input, model, scaler, f'{title} Value', 'Contract value')
-  st.write(f'The predicted value of the next week: {prediction}')
+    prediction = print_the_prediction(input, model, scaler, f'{title} Value', 'Contract value')
+    st.write(f'The predicted value of the next week: {prediction}')
     
-  if __name__ == "__main__":
+    if __name__ == "__main__":
         main()
 
     
