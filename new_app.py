@@ -493,11 +493,11 @@ def contract_value_predict():
       value = 1e7
     
     #Sliders instead of the boxes
-    x1 = st.sidebar.slider("Contract value 5 weeks ago", min_value=0e1, max_value=max_value, value=value, step=1e2)
-    x2 = st.sidebar.slider("Contract value 4 weeks ago", min_value=0e1, max_value=1.1*max_value, value=value, step=1e2)
-    x3 = st.sidebar.slider("Contract value 3 weeks ago", min_value=0e1, max_value=0.9*max_value, value=value, step=1e2)
-    x4 = st.sidebar.slider("Contract value 2 weeks ago", min_value=0e1, max_value=1.2*max_value, value=value, step=1e2)
-    x5 = st.sidebar.slider("Contract value last week", min_value=0e1, max_value=0.8*max_value, value=value, step=1e2)
+    x1 = st.sidebar.slider("Contract value 5 weeks ago", min_value=0e1, max_value=max_value, value=2.5value, step=1e2)
+    x2 = st.sidebar.slider("Contract value 4 weeks ago", min_value=0e1, max_value=max_value, value=1.1value, step=1e2)
+    x3 = st.sidebar.slider("Contract value 3 weeks ago", min_value=0e1, max_value=max_value, value=4.3value, step=1e2)
+    x4 = st.sidebar.slider("Contract value 2 weeks ago", min_value=0e1, max_value=max_value, value=3.1value, step=1e2)
+    x5 = st.sidebar.slider("Contract value last week", min_value=0e1, max_value=max_value, value=2.1value, step=1e2)
     
     #Choosing the option
     print(contract_type)
