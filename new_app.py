@@ -495,7 +495,7 @@ def contract_value_predict():
     #Sliders instead of the boxes
     x1 = st.sidebar.slider("Contract value 5 weeks ago", min_value=0e1, max_value=max_value, value=2.5*value, step=1e2)
     x2 = st.sidebar.slider("Contract value 4 weeks ago", min_value=0e1, max_value=max_value, value=1.1*value, step=1e2)
-    x3 = st.sidebar.slider("Contract value 3 weeks ago", min_value=0e1, max_value=max_value, value=4.3*value, step=1e2)
+    x3 = st.sidebar.slider("Contract value 3 weeks ago", min_value=0e1, max_value=max_value, value=2.9*value, step=1e2)
     x4 = st.sidebar.slider("Contract value 2 weeks ago", min_value=0e1, max_value=max_value, value=3.1*value, step=1e2)
     x5 = st.sidebar.slider("Contract value last week", min_value=0e1, max_value=max_value, value=2.1*value, step=1e2)
     
