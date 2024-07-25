@@ -116,7 +116,7 @@ def intro():
     )
 
     
-    st.write("# ------------------------------------------------")
+    st.write("# -----------------------------------------------")
     st.write("Project Collaborators")
 
     linkedin_imgs = [
